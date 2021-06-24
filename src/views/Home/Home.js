@@ -1,9 +1,10 @@
+import { Typography } from '@material-ui/core';
 import React from 'react';
 
 const Home = props => {
     return(
-        <div>
-            <p>oke</p>
+        <div style={{textAlign: 'center'}}>
+            <Typography color='textPrimary'>Hey there!!</Typography>
         </div>
     )
 }
