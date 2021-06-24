@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import rootReducers from './rootReducers';
 import Routes from './Routes';
 
-const store = createStore(
+export const store = createStore(
   rootReducers,
   composeWithDevTools(applyMiddleware(thunk))
 )

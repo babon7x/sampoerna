@@ -1,0 +1,2 @@
+export const SET_LOADING_PROGERES = 'SET_LOADING_PROGERES';
+export const SET_LOGGED_IN = 'SET_LOGGED_IN';

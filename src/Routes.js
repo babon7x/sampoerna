@@ -1,14 +1,15 @@
 import React from 'react';
 import { Redirect, Switch } from 'react-router-dom'
-import { UserRoute } from "./authroutes";
+import { UserRoute, GuestRoute } from "./authroutes";
 import { MinLayout } from "./layouts";
-import { Home } from "./views";
+import { Home, Login } from "./views";
 
 const Routes = props => {
     return(
         <Switch>
-            <Redirect from="/" to="/home" exact />
+            <Redirect from="/" to="/login" exact />
             <UserRoute path="/home" exact component={Home} layout={MinLayout}/>
+            <GuestRoute path="/login" exact component={Login} layout={MinLayout}/>
         </Switch>
     )
 }

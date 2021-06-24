@@ -2,7 +2,7 @@ import { Redirect, Route } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
-const UserRoute = props => {
+const GuestRoute = props => {
     const { isAuthenticated, layout: Layout, component: Component, ...rest } = props;
 
     return(
@@ -10,14 +10,14 @@ const UserRoute = props => {
             { ...rest }
             render={matchProps => (
                 <Layout>
-                    { isAuthenticated ? <Component {...matchProps} /> : <Redirect to="/login" /> } 
+                    { !isAuthenticated ? <Component {...matchProps} /> : <Redirect to="/home" /> } 
                 </Layout>
             )}
         />
     )
 }
 
-UserRoute.propTypes = {
+GuestRoute.propTypes = {
     path: PropTypes.string.isRequired,
     component: PropTypes.any.isRequired,
     layout: PropTypes.any.isRequired
@@ -29,4 +29,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps, null)(UserRoute);
+export default connect(mapStateToProps, null)(GuestRoute);
