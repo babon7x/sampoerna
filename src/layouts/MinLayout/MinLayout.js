@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AppBar, IconButton, makeStyles, SwipeableDrawer, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { ProgressLoader } from "../../components";
+import { ProgressLoader, Notification } from "../../components";
 import { connect } from 'react-redux';
 import { setLoadingProgress } from '../../actions/loadingprogress';
 import { SidebarMenu } from './components';
-import { Container } from '@material-ui/core';
+import { setMessage } from '../../actions/notification';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -20,10 +20,14 @@ const useStyles = makeStyles(theme => ({
     },
     list: {
         width: 250
+    },
+    content: {
+        margin: 10
     }
 }))
 
 const MinLayout = props => {
+    const { notification } = props;
     const classes = useStyles();
     const [open, setOpen] = useState(false);
 
@@ -79,10 +83,15 @@ const MinLayout = props => {
             >
                 { list() }
             </SwipeableDrawer>
-            <br />
-            <Container>
+            <div className={classes.content}>
                 {props.children}
-            </Container>
+            </div>
+            <Notification 
+                open={notification.open}
+                message={notification.text}
+                handleClose={() => props.setMessage(null, false, notification.variant) }
+                variant={notification.variant}
+            />
         </React.Fragment>
     )
 }
@@ -91,17 +100,21 @@ MinLayout.propTypes = {
     children: PropTypes.node.isRequired,
     loadingprogress: PropTypes.number.isRequired,
     setLoadingProgress: PropTypes.func.isRequired,
-    menus: PropTypes.array.isRequired
+    menus: PropTypes.array.isRequired,
+    notification: PropTypes.object.isRequired,
+    setMessage: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state){
     return{
         loadingprogress: state.loadingprogress,
         menus: state.menu,
-        user: state.auth
+        user: state.auth,
+        notification: state.message
     }
 }
 
 export default connect(mapStateToProps, {
-    setLoadingProgress
+    setLoadingProgress,
+    setMessage
 })(MinLayout);

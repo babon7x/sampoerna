@@ -9,13 +9,18 @@ import { getData } from '../../actions/users';
 import { Pagination } from '@material-ui/lab';
 import { ListUser } from './components';
 import { setLoadingProgress } from '../../actions/loadingprogress';
+import { Button, Icon } from '@material-ui/core';
+import { setMessage } from '../../actions/notification';
 
 const useStyles = makeStyles(theme => ({
     root: {
-
+        margin: theme.spacing(2)
     },
     actions: {
         justifyContent: 'flex-end'
+    },
+    title: {
+        marginBottom: 10
     }
 }))
 
@@ -45,7 +50,7 @@ const Users = props => {
             fetch(defaultparams, 1);
         }
         //eslint-disable-next-line
-    }, [mount]);
+    }, [mount.ready]);
 
     useEffect(() => {
         if(countFetched){
@@ -56,6 +61,19 @@ const Users = props => {
 
     const hanldeFilter = (params) => {
         setMount({ ready: true, params })
+
+        if(mount.ready){    
+            const newparams = {
+                ...defaultparams,
+                offset: 0,
+                ...params,
+                type: 'count'
+            }
+
+            fetch(newparams, 1);
+
+            setPaging(prevState => ({ ...prevState, activePage: 1 }));
+        }
     }
 
     const fetch = async (parameter, page) => {
@@ -69,26 +87,34 @@ const Users = props => {
                 setCountFetched(true);
             }   
         } catch (error) {
-            console.log(error);
+            props.setMessage(error, true, 'error');
+            props.setLoadingProgress(100);
         }
     }
 
     const handleChangePage = (e, page) => {
         setPaging(paging => ({ ...paging, activePage: page }))
-        // const parameter = {
-        //     ...defaultparams,
-        //     offset: (page * limit) - limit, //refresh offset value with change activepage in state
-        // }
+        const parameter = {
+            ...defaultparams,
+            type: 'data',
+            offset: (page * limit) - limit, //refresh offset value with change activepage in state
+        }
 
-        //fetch(parameter, 'data', page);
+        fetch(parameter, page);
     }
 
     var pagesrow        = userlist[`page_${activePage}`] ? userlist[`page_${activePage}`] : [];
     var firstNumber     = (activePage * limit) - limit + 1;
 
     return(
-        <animated.div style={fadeAnime}>
-            <Card className={classes.root}>
+        <animated.div style={fadeAnime} className={classes.root}>
+            <Button 
+                variant='contained' 
+                startIcon={<Icon>add</Icon>}
+            >
+                TAMBAH PENGGUNA
+            </Button>
+            <Card style={{marginTop: 15}}>
                 <CardHeader 
                     title={<OfficeFilter 
                         listregion={props.regions}
@@ -120,6 +146,7 @@ Users.propTypes = {
     session: PropTypes.object.isRequired,
     getData: PropTypes.func.isRequired,
     setLoadingProgress: PropTypes.func.isRequired,
+    setMessage: PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state){
@@ -131,4 +158,8 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps, { getData, setLoadingProgress } )(Users);
+export default connect(mapStateToProps, { 
+    getData, 
+    setLoadingProgress,
+    setMessage 
+})(Users);
