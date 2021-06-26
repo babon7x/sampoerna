@@ -66,13 +66,10 @@ const Users = props => {
             const newparams = {
                 ...defaultparams,
                 offset: 0,
-                ...params,
-                type: 'count'
+                ...params
             }
 
-            fetch(newparams, 1);
-
-            setPaging(prevState => ({ ...prevState, activePage: 1 }));
+            handleFilter(newparams);
         }
     }
 
@@ -90,6 +87,27 @@ const Users = props => {
             props.setMessage(error, true, 'error');
             props.setLoadingProgress(100);
         }
+    }
+
+    //must reset page to 1
+    const handleFilter = (parameter) => {
+        setPaging(prev => ({ ...prev, activePage: 1 }));
+
+        props.setLoadingProgress(10);
+
+        props.getData({ ...parameter, type: 'count' }, 1)
+            .then(async () => {
+                try {
+                    await props.getData({ ...parameter, type: 'data' }, 1);
+                } catch (error) {
+                    props.setMessage(error, true, 'error');
+                }
+                props.setLoadingProgress(100);
+            })
+            .catch(err => {
+                props.setLoadingProgress(100);
+                props.setMessage(err, true, 'error');
+            })
     }
 
     const handleChangePage = (e, page) => {
