@@ -1,4 +1,5 @@
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { lightBlue } from '@material-ui/core/colors';
 import { Provider } from 'react-redux';
 import { HashRouter } from "react-router-dom";
 import { applyMiddleware, createStore } from 'redux';
@@ -14,7 +15,10 @@ export const store = createStore(
 
 const theme = createMuiTheme({
   palette: {
-    type: 'dark'
+    type: 'dark',
+    primary: {
+      main: lightBlue[500]
+    }
   },
   typography: {
     fontFamily: 'Nunito Sans Regular'

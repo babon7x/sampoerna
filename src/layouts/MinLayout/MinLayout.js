@@ -6,6 +6,7 @@ import { ProgressLoader } from "../../components";
 import { connect } from 'react-redux';
 import { setLoadingProgress } from '../../actions/loadingprogress';
 import { SidebarMenu } from './components';
+import { Container } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -78,7 +79,10 @@ const MinLayout = props => {
             >
                 { list() }
             </SwipeableDrawer>
-            {props.children}
+            <br />
+            <Container>
+                {props.children}
+            </Container>
         </React.Fragment>
     )
 }

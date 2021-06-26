@@ -56,7 +56,8 @@ const SidebarMenu = props => {
                         component={NavLink}
                         to={menu.path}
                         exact
-                        ctiveClassName="Mui-selected" 
+                        activeClassName="Mui-selected" 
+                        onClick={props.toogleDrawer(false)}
                     >
                         <ListItemIcon>
                             <Icon>{menu.icon}</Icon>

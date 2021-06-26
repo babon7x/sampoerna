@@ -71,6 +71,7 @@ const Login = props => {
                     if(message.global){
                         setErrors({ global: `Opps! ${err.message.global}`});
                     }else{
+                        props.setLoadingProgress(100);
                         setErrors(message);
                     }
                 }else{

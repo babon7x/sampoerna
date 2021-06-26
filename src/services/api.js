@@ -18,5 +18,12 @@ let config = {
 export default {
     auth: (payload) => axios.post(`${url}/auth`, {
          ...payload
-    }, config).then(res => res.data)
+    }, config).then(res => res.data),
+    user: {
+        get: (params) => axios.get(`${url}/user`, { 
+            params, 
+            headers, 
+            onDownloadProgress: params.type === 'data' ? config.onDownloadProgress : () => {}
+        }).then(res => res.data)
+    }
 }

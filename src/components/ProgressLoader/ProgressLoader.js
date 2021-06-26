@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
-      height: 5
+      height: 2
     },
     colorPrimary: {
-      backgroundColor: theme.palette.grey[700],
+      backgroundColor: '#212121',
     },
     bar: {
-      backgroundColor: '#FFF',
+      backgroundColor: 'red',
     },
   }))(LinearProgress);
 
