@@ -6,7 +6,8 @@ import {
     TableCell,
     TableRow,
     makeStyles,
-    TableBody
+    TableBody,
+    Chip
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { SelectOption } from '../../../../components';
@@ -40,6 +41,7 @@ const ListUser = props => {
                         <TableCell>EMAIL</TableCell>
                         <TableCell>PHONE</TableCell>
                         <TableCell>LEVEL</TableCell>
+                        <TableCell align='center'>STATUS</TableCell>
                         <TableCell align='center'>ACTION</TableCell>
                     </TableRow>
                 </TableHead>
@@ -53,6 +55,13 @@ const ListUser = props => {
                         <TableCell className={classes.cell}>{user.email}</TableCell>
                         <TableCell className={classes.cell}>{user.phone}</TableCell>
                         <TableCell className={classes.cell}>{user.levelname}</TableCell>
+                        <TableCell className={classes.cell} align='center'>
+                            <Chip 
+                                label={user.status === '1' ? 'Active' : 'Nonactive'}
+                                size='small'
+                                color={user.status === '1' ? 'primary' : 'secondary'}
+                            />
+                        </TableCell>
                         <TableCell className={classes.cell} align='center'>
                             <SelectOption 
                                 list={[
