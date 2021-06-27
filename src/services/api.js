@@ -24,6 +24,10 @@ export default {
             params, 
             headers, 
             onDownloadProgress: params.type === 'data' ? config.onDownloadProgress : () => {}
-        }).then(res => res.data)
+        }).then(res => res.data),
+        post: (params) => axios.post(`${url}/user`, {...params}, config).then(res => res.data)
+    },
+    referensi: {
+        getOffice: (params) => axios.get(`${url}/referensi/getoffice`, { params, headers }).then(res => res.data)
     }
 }

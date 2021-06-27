@@ -11,6 +11,7 @@ import { ListUser } from './components';
 import { setLoadingProgress } from '../../actions/loadingprogress';
 import { Button, Icon } from '@material-ui/core';
 import { setMessage } from '../../actions/notification';
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -129,6 +130,8 @@ const Users = props => {
             <Button 
                 variant='contained' 
                 startIcon={<Icon>add</Icon>}
+                component={NavLink}
+                to="/users/add"
             >
                 TAMBAH PENGGUNA
             </Button>

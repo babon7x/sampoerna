@@ -1,4 +1,4 @@
-import { COUNT_USERS, GET_USERS } from "../types";
+import { ADD_USER, COUNT_USERS, GET_USERS } from "../types";
 
 const initialState = {
     total: 0,
@@ -13,6 +13,11 @@ export default function users(state=initialState, action={}){
             return {
                 ...state,
                 data: { ...state.data, [action.page]: action.data }
+            }
+        case ADD_USER:
+            return {
+                ...state,
+                data: { ...state.data, [action.page]: [action.data, ...state.data[action.page]]}
             }
         default:
             return state;

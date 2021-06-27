@@ -9,6 +9,8 @@ export const setMessage = (response, open, variant) => dispatch => {
             }else{
                 message = `(${response.rscode}) terdapat kesalahan`;
             }
+        }else if(response.text){ //mostly for success message
+            message = response.text;
         }else{
             message = '(500) Internal server error';
         }

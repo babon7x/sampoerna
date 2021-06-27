@@ -5,6 +5,7 @@ import menu from './reducers/menu'
 import region from './reducers/region';
 import users from './reducers/users';
 import message from './reducers/message';
+import levels from './reducers/levels';
 
 export default combineReducers({
     auth,
@@ -12,5 +13,6 @@ export default combineReducers({
     menu,
     region,
     users,
-    message
+    message,
+    levels
 })
