@@ -5,3 +5,5 @@ export const GET_USERS = 'GET_USERS';
 export const SET_MESSAGE = 'SET_MESSAGE';
 export const ADD_USER = 'ADD_USER';
 export const GET_MENU = 'GET_MENU';
+export const SET_LOGGED_OUT = 'SET_LOGGED_OUT';
+export const RESET_MENU = 'RESET_MENU';

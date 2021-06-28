@@ -1,5 +1,5 @@
 import api from "../services/api";
-import { GET_MENU, SET_LOGGED_IN } from "../types";
+import { GET_MENU, RESET_MENU, SET_LOGGED_IN, SET_LOGGED_OUT } from "../types";
 import defaultmenu from '../json/defaultmenu.json';
 
 export const login = (payload) => dispatch =>
@@ -42,4 +42,12 @@ export const setLoggedIn = (user) => async dispatch => {
     } catch (error) {
         alert("get menu failed");
     }
+}
+
+export const setLoggedOut = () => dispatch => {
+    dispatch({ type: SET_LOGGED_OUT })
+
+    localStorage.removeItem(process.env.REACT_APP_LS_NAME);
+
+    dispatch({ type: RESET_MENU })
 }

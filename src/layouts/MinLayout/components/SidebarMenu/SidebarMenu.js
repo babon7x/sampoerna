@@ -110,7 +110,13 @@ const SidebarMenu = props => {
                     <Typography>{user.fullname.split(' ').slice(0, -1).join(' ')}</Typography>
                 </div>
                 <div className={classes.center}>
-                    <Button variant='outlined' size='small'> 
+                    <Button 
+                        variant='outlined' 
+                        size='small'
+                        component={NavLink}
+                        to="/profile"
+                        onClick={props.toogleDrawer(false)}
+                    > 
                         Edit
                     </Button>
                 </div>

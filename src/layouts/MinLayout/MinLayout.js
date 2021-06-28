@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { AppBar, IconButton, makeStyles, SwipeableDrawer, Toolbar, Typography } from '@material-ui/core';
+import { CssBaseline, AppBar, IconButton, makeStyles, SwipeableDrawer, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { ProgressLoader, Notification } from "../../components";
 import { connect } from 'react-redux';
@@ -83,6 +83,7 @@ const MinLayout = props => {
             >
                 { list() }
             </SwipeableDrawer>
+            <CssBaseline />
             <div className={classes.content}>
                 {props.children}
             </div>
