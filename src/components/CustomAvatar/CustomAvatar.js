@@ -60,7 +60,7 @@ const CustomAvatar = props => {
             >
                 <Avatar 
                     alt="Remy Sharp" 
-                    src={process.env.PUBLIC_URL + '/images/todoroki.jpeg'}
+                    src={process.env.REACT_APP_PUBLIC_URL + '/images/todoroki.jpeg'}
                     className={classes.avatar}
                 />
             </StyledBadge>

@@ -7,6 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import rootReducers from './rootReducers';
 import Routes from './Routes';
+import { setLoggedIn } from './actions/auth';
 
 export const store = createStore(
   rootReducers,
@@ -24,6 +25,11 @@ const theme = createMuiTheme({
     fontFamily: 'Nunito Sans Regular'
   }
 });
+
+if(localStorage[process.env.REACT_APP_LS_NAME]){
+  const user  = JSON.parse(localStorage[process.env.REACT_APP_LS_NAME]);
+  store.dispatch(setLoggedIn(user));
+}
 
 function App() {
   return (

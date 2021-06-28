@@ -1,26 +1,10 @@
-const initialState = [
-    {
-        id: 1,
-        title: 'Pengguna',
-        path: '/users',
-        icon: 'person',
-        collapse: false,
-        submenu: [],
-        subtitle: 'Data pengguna'
-    },
-    {
-        id: 2,
-        title: 'Bantuan',
-        path: '/help',
-        icon: 'home',
-        collapse: false,
-        submenu: [],
-        subtitle: ''
-    }
-]
+import { GET_MENU } from "../types";
+import defaultmenu from '../json/defaultmenu.json';
 
-export default function menu(state=initialState, action={}){
+export default function menu(state=defaultmenu, action={}){
     switch(action.type){
+        case GET_MENU:
+            return action.data;
         default:
             return state;
     }

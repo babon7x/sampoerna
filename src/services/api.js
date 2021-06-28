@@ -28,6 +28,7 @@ export default {
         post: (params) => axios.post(`${url}/user`, {...params}, config).then(res => res.data)
     },
     referensi: {
-        getOffice: (params) => axios.get(`${url}/referensi/getoffice`, { params, headers }).then(res => res.data)
+        getOffice: (params) => axios.get(`${url}/referensi/getoffice`, { params, headers }).then(res => res.data),
+        getMenu: (params) => axios.get(`${url}/referensi/menu`, { params, headers }).then(res => res.data)
     }
 }

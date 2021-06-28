@@ -66,17 +66,18 @@ const Login = props => {
                 await props.login(field);
                 props.history.push("/home");
             } catch (err) {
-                if(err.rscode){
-                    const { message } = err;
-                    if(message.global){
-                        setErrors({ global: `Opps! ${err.message.global}`});
-                    }else{
-                        props.setLoadingProgress(100);
-                        setErrors(message);
-                    }
-                }else{
-                    setErrors({ global: `Opps, something wrong! response code ${err.request.status}`})
-                }
+                console.log(err);
+                // if(err.rscode){
+                //     const { message } = err;
+                //     if(message.global){
+                //         setErrors({ global: `Opps! ${err.message.global}`});
+                //     }else{
+                //         props.setLoadingProgress(100);
+                //         setErrors(message);
+                //     }
+                // }else{
+                //     setErrors({ global: `Opps, something wrong! response code ${err.request.status}`})
+                // }
             }
 
             setLoading(false);
