@@ -1,5 +1,5 @@
 import { Button, Collapse, FormControl, Grid, Link, makeStyles, TextField, Typography } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { setLoadingProgress } from '../../actions/loadingprogress';
 import { connect } from 'react-redux';
@@ -45,14 +45,6 @@ const Login = props => {
     })
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        if(errors.global){
-            setTimeout(() => {
-                setErrors({});
-            }, 3000);
-        }
-    }, [errors]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -123,7 +115,7 @@ const Login = props => {
                 </Typography> 
 
                 <Collapse in={!!errors.global} timeout={500}>
-                    <Alert variant='filled' severity='error' style={{marginBottom: 20}}>
+                    <Alert variant='filled' severity='error' style={{marginBottom: 20}} onClose={() => setErrors(prev => ({ ...prev, global: undefined }))}>
                         { errors.global }
                     </Alert>
                 </Collapse>
