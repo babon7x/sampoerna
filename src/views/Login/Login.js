@@ -66,18 +66,18 @@ const Login = props => {
                 await props.login(field);
                 props.history.push("/home");
             } catch (err) {
-                console.log(err);
-                // if(err.rscode){
-                //     const { message } = err;
-                //     if(message.global){
-                //         setErrors({ global: `Opps! ${err.message.global}`});
-                //     }else{
-                //         props.setLoadingProgress(100);
-                //         setErrors(message);
-                //     }
-                // }else{
-                //     setErrors({ global: `Opps, something wrong! response code ${err.request.status}`})
-                // }
+                if(err.rscode){
+                    const { message } = err;
+                    if(message.global){
+                        setErrors({ global: `Opps! ${err.message.global}`});
+                    }else{
+                        props.setLoadingProgress(100);
+                        setErrors(message);
+                    }
+                }else{
+                    props.setLoadingProgress(100);
+                    setErrors({ global: `Opps, something wrong! response code ${err.request.status}`})
+                }
             }
 
             setLoading(false);
@@ -115,7 +115,7 @@ const Login = props => {
             alignItems='center' 
             className={classes.root}
         >
-            <Grid item xs={11} sm={8} md={5}>
+            <Grid item xs={11} sm={8} md={4}>
                 <Typography variant='h6' color='textPrimary' className={classes.title}>
                     Selamat datang!
                     <Typography variant='subtitle2'>Untuk memulai silahkan login terlebih dahulu atau jika
