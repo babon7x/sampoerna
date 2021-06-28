@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { InputButton } from '../../components';
 import PropTypes from 'prop-types'
+import api from '../../services/api';
 
 const OfficeFilter = props => {
     const { listregion } = props;
@@ -12,18 +13,33 @@ const OfficeFilter = props => {
         kprk: '00',
         search: ''
     })
+    const [kprk, setKprk] = useState([]);
 
     useEffect(() => {
         props.onFilter(field);
         //eslint-disable-next-line
     }, []);
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         const { name, value } = e.target;
         setField(prevState => ({
             ...prevState,
             [name]: value
         }))
+        
+        if(name === 'reg'){
+            try {
+                const kprkdata = await api.referensi.getOffice({ type: 'kprk', region: value });
+                if(kprkdata.rscode === 200){
+                    setKprk(kprkdata.data);
+                    setField(prev => ({ ...prev, kprk: '00' }));
+                }else{
+                    alert("kprk not found");
+                }
+            } catch (error) {
+                alert("kprk not found");
+            }
+        }
     }
 
     const handleSubmit = (e) => {
@@ -62,7 +78,9 @@ const OfficeFilter = props => {
                             onChange={handleChange}
                         >
                             <MenuItem value='00'>SEMUA KPRK</MenuItem>
-                            <MenuItem value='10004'>REG 01</MenuItem>
+                            { kprk.map(office => <MenuItem value={office.nopend} key={office.nopend}>
+                                { office.nopend } - { office.officename }
+                            </MenuItem>)}
                         </Select>
                     </FormControl>
                 </Grid>
