@@ -51,6 +51,15 @@ const ListPo = props => {
         //eslint-disable-next-line
     }, [countFetched]);
 
+    useEffect(() => {
+        if(!search && countFetched){
+            setPaging(prev => ({ ...prev, activePage: 1 }))
+            setCountFetched(false);
+            fetch(defaultparams, 1);
+        }
+        //eslint-disable-next-line
+    }, [search])
+
     const fetch = async (parameter, page) => {
         if(parameter.type === 'data'){
             props.setLoadingProgress(5);
@@ -73,6 +82,7 @@ const ListPo = props => {
             ...defaultparams,
             type: 'data',
             offset: (page * limit) - limit, //refresh offset value with change activepage in state
+            search: search ? search : undefined
         }
 
         fetch(parameter, page);
@@ -80,8 +90,34 @@ const ListPo = props => {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        alert(search);
+        if(search){
+            setPaging(prev => ({ ...prev, activePage: 1 }));
+            const parameter = {
+                ...defaultparams,
+                limit,
+                offset: 0,
+                search
+            }
+
+            props.setLoadingProgress(5);
+
+            props.getPurchase({ ...parameter, type: 'count' }, 1)
+                .then(async () => {
+                    try {
+                        await props.getPurchase({ ...parameter, type: 'data' }, 1);
+                    } catch (error) {
+                        props.setMessage(error, true, 'error');
+                    }
+                    props.setLoadingProgress(100);
+                })
+                .catch(err => {
+                    props.setLoadingProgress(100);
+                    props.setMessage(err, true, 'error');
+                })
+        }
     }
+
+
 
     var pagesrow        = listpurchase[`page_${activePage}`] ? listpurchase[`page_${activePage}`] : [];
     var firstNumber     = (activePage * limit) - limit + 1;
@@ -107,6 +143,7 @@ const ListPo = props => {
                                     color="primary"
                                 />  
                                 &nbsp; &nbsp; &nbsp;periode {element.startdate} sampai {element.enddate}
+                                &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; {element.email}
                             </TableCell> 
                         </TableRow>
                         <TableRow>

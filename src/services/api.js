@@ -40,7 +40,11 @@ export default {
     purchase: {
         post: (payload) => axios.post(`${url}/purchase`, { ...payload }, config).then(res => res.data),
         get: (params) => axios.get(`${url}/purchase`,{ 
-            params, 
+            params: {
+                ...params,
+                limit: params.type === 'data' ? params.limit : undefined,
+                offset: params.type === 'data' ? params.offset : undefined,
+            }, 
             headers, 
             onDownloadProgress: params.type === 'data' ? config.onDownloadProgress : () => {}
         }).then(res => res.data)
