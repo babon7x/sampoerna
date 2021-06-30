@@ -26,10 +26,18 @@ export default {
             onDownloadProgress: params.type === 'data' ? config.onDownloadProgress : () => {}
         }).then(res => res.data),
         post: (params) => axios.post(`${url}/user`, {...params}, config).then(res => res.data),
-        registrasi: (payload) => axios.post(`${url}/registrasi`, { ...payload }, config).then(res => res.data)
+        registrasi: (payload) => axios.post(`${url}/registrasi`, { ...payload }, config).then(res => res.data),
+        cekemail: (params) => axios.get(`${url}/user/cekemail`, { 
+            params, 
+            headers, 
+            onDownloadProgress: config.onDownloadProgress 
+        }).then(res => res.data)
     },
     referensi: {
         getOffice: (params) => axios.get(`${url}/referensi/getoffice`, { params, headers }).then(res => res.data),
         getMenu: (params) => axios.get(`${url}/referensi/menu`, { params, headers }).then(res => res.data)
+    },
+    purchase: {
+        post: (payload) => axios.post(`${url}/purchase`, { ...payload }, config).then(res => res.data)
     }
 }

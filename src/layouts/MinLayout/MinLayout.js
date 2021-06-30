@@ -23,6 +23,10 @@ const useStyles = makeStyles(theme => ({
     },
     content: {
         margin: 10
+    },
+    appBar: {
+        backgroundColor: '#303030', 
+        color: '#FFF'
     }
 }))
 
@@ -59,7 +63,7 @@ const MinLayout = props => {
     return(
         <React.Fragment>
             { props.loadingprogress > 0 && <ProgressLoader percentage={props.loadingprogress} /> }
-            <AppBar position="static" color='default' elevation={0}>
+            <AppBar position="static" className={classes.appBar} elevation={0}>
                 <Toolbar>
                     <IconButton 
                         edge="start" 

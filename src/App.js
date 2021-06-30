@@ -8,6 +8,8 @@ import thunk from 'redux-thunk';
 import rootReducers from './rootReducers';
 import Routes from './Routes';
 import { setLoggedIn } from './actions/auth';
+import MomentUtils from '@date-io/moment';
+import MuiPickersUtilsProvider from "@material-ui/pickers/MuiPickersUtilsProvider";
 
 export const store = createStore(
   rootReducers,
@@ -22,7 +24,10 @@ const theme = createMuiTheme({
     }
   },
   typography: {
-    fontFamily: 'Nunito Sans Regular'
+    fontFamily: 'Nunito Sans Regular',
+    button: {
+      fontWeight: 'bold'
+    }
   }
 });
 
@@ -34,11 +39,13 @@ if(localStorage[process.env.REACT_APP_LS_NAME]){
 function App() {
   return (
     <HashRouter>
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <Routes />
-        </ThemeProvider>
-      </Provider>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <Routes />
+          </ThemeProvider>
+        </Provider>
+      </MuiPickersUtilsProvider>
     </HashRouter>
   );
 }

@@ -8,7 +8,8 @@ import {
     Users, 
     AddUser,
     Profile,
-    Registrasi
+    Registrasi,
+    Purchase
 } from "./views";
 
 const Routes = props => {
@@ -21,6 +22,7 @@ const Routes = props => {
             <UserRoute path="/users/add" exact component={AddUser} layout={MinLayout}/>
             <UserRoute path="/profile" exact component={Profile} layout={MinLayout}/>
             <GuestRoute path="/registrasi" exact component={Registrasi} layout={MinLayout}/>
+            <UserRoute path="/purchase" exact component={Purchase} layout={MinLayout}/>
         </Switch>
     )
 }
