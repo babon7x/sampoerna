@@ -4,23 +4,39 @@ import { connect } from 'react-redux';
 import { getPurchase } from '../../actions/purchase';
 import { setMessage } from '../../actions/notification';
 import { setLoadingProgress } from '../../actions/loadingprogress';
-import { Card, Chip, Container, makeStyles, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
-import { CardHeader, Divider, CardActions, TableContainer } from '@material-ui/core';
+import { Card, Chip, Container, makeStyles, Table, TableBody, TableCell, TableHead, TableRow, MenuItem, Select, FormControl, InputLabel, Grid } from '@material-ui/core';
+import { CardActions, TableContainer } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import { InputButton } from '../../components';
 import { decimalNumber } from '../../utils';
 import { Icon } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import { animated, useSpringRef, useTransition } from 'react-spring';
 
 const useStyles = makeStyles(theme => ({
     root: {
         width: "100%",
         overflowX: "auto"
+    },
+    left: {
+        display: 'flex',
+        justifyContent: 'flex-end'
     }
 }))
 
 const ListPo = props => {
     const { session, total, listpurchase } = props;
     const classes = useStyles();
+
+    const transRef = useSpringRef();
+    const transitions = useTransition(null, {
+        ref: transRef,
+        keys: null,
+        from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
+        enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
+        leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
+    })
+
     const [paging, setPaging] = useState({
         limit: 10,
         activePage: 1
@@ -41,6 +57,7 @@ const ListPo = props => {
 
     useEffect(() => {
         fetch(defaultparams, 1);
+        transRef.start();
         //eslint-disable-next-line
     }, []);
 
@@ -86,6 +103,19 @@ const ListPo = props => {
         }
 
         fetch(parameter, page);
+    }
+
+    const handleChangeLimit = (e) => {
+        const { value } = e.target;
+        setPaging(prev => ({ ...prev, activePage: 1, limit: value }));
+        const parameter = {
+            ...defaultparams,
+            type: 'data',
+            offset: 0,
+            limit: value
+        }
+
+        fetch(parameter, 1);
     }
 
     const handleSearch = (e) => {
@@ -171,11 +201,27 @@ const ListPo = props => {
 
     return(
         <Container>
-            <Card style={{marginTop: 10}}>
-                <CardHeader 
-                    title='Purchase Order'
-                    subheader='Rekap data purchase order'
-                    action={<form style={{marginTop: 13}} onSubmit={handleSearch}>
+            <Grid container spacing={2} justify='space-between' alignItems='center'>
+                <Grid item xs={12} sm={6}>
+                    <Typography variant='h6'>Rekap data purchase order</Typography>
+                    
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <form className={classes.left} onSubmit={handleSearch}>
+                        <FormControl variant='outlined' fullWidth size='small' style={{marginRight: 10, maxWidth: 80}}>
+                            <InputLabel htmlFor='show'>Show</InputLabel>
+                            <Select
+                                value={limit}
+                                labelId='show'
+                                label='Show'
+                                onChange={handleChangeLimit}
+                            >
+                                { ['10','30','70','100','150','200'].map(list => 
+                                    <MenuItem value={list} key={list}>
+                                        { list }
+                                    </MenuItem>)}
+                            </Select>
+                        </FormControl>
                         <InputButton 
                             label='Search'
                             placeholder='Cari po number disini...'
@@ -183,24 +229,27 @@ const ListPo = props => {
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
-                    </form>}
-                />
-                <Divider />
-                <TableContainer className={classes.root}>
-                    <Table size='small'>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>NO</TableCell>
-                                <TableCell>LINE NUMBER</TableCell>
-                                <TableCell>DESKRIPSI</TableCell>
-                                <TableCell align='right'>BESAR UANG</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {list}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                    </form>
+                </Grid>
+            </Grid>
+            <Card style={{marginTop: 10}}>
+                { transitions(style => <animated.div style={{...style}}>
+                    <TableContainer className={classes.root}>
+                        <Table size='small'>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>NO</TableCell>
+                                    <TableCell>LINE NUMBER</TableCell>
+                                    <TableCell>DESKRIPSI</TableCell>
+                                    <TableCell align='right'>BESAR UANG</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {list}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </animated.div>)}
                 <CardActions style={{justifyContent: 'flex-end'}}>
                     <Pagination 
                         count={Math.ceil(total / limit)} 
