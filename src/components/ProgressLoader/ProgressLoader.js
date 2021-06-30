@@ -1,6 +1,16 @@
-import { LinearProgress, withStyles } from '@material-ui/core';
+import { LinearProgress, makeStyles, withStyles } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
+
+const useStyles = makeStyles(theme => ({
+  root:{
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: theme.zIndex.appBar + 1
+  }
+}))
 
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
@@ -15,8 +25,9 @@ const BorderLinearProgress = withStyles((theme) => ({
   }))(LinearProgress);
 
 const ProgressLoader = props => {
+    const classes = useStyles();
     return(
-        <div style={{position: 'absolute', top: 0, left: 0, right: 0}}>
+        <div className={classes.root}>
             <BorderLinearProgress 
                 variant="determinate" 
                 value={props.percentage} 

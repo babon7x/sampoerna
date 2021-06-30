@@ -38,6 +38,11 @@ export default {
         getMenu: (params) => axios.get(`${url}/referensi/menu`, { params, headers }).then(res => res.data)
     },
     purchase: {
-        post: (payload) => axios.post(`${url}/purchase`, { ...payload }, config).then(res => res.data)
+        post: (payload) => axios.post(`${url}/purchase`, { ...payload }, config).then(res => res.data),
+        get: (params) => axios.get(`${url}/purchase`,{ 
+            params, 
+            headers, 
+            onDownloadProgress: params.type === 'data' ? config.onDownloadProgress : () => {}
+        }).then(res => res.data)
     }
 }

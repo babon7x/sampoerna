@@ -22,12 +22,14 @@ const useStyles = makeStyles(theme => ({
         width: 250
     },
     content: {
-        margin: 10
+        margin: 10,
+        flexGrow: 1,
     },
     appBar: {
         backgroundColor: '#303030', 
         color: '#FFF'
-    }
+    },
+    toolbar: theme.mixins.toolbar,
 }))
 
 const MinLayout = props => {
@@ -63,7 +65,7 @@ const MinLayout = props => {
     return(
         <React.Fragment>
             { props.loadingprogress > 0 && <ProgressLoader percentage={props.loadingprogress} /> }
-            <AppBar position="static" className={classes.appBar} elevation={0}>
+            <AppBar position='fixed' className={classes.appBar} elevation={0}>
                 <Toolbar>
                     <IconButton 
                         edge="start" 
@@ -89,6 +91,7 @@ const MinLayout = props => {
             </SwipeableDrawer>
             <CssBaseline />
             <div className={classes.content}>
+                <div className={classes.toolbar} />
                 {props.children}
             </div>
             <Notification 

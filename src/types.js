@@ -7,3 +7,5 @@ export const ADD_USER = 'ADD_USER';
 export const GET_MENU = 'GET_MENU';
 export const SET_LOGGED_OUT = 'SET_LOGGED_OUT';
 export const RESET_MENU = 'RESET_MENU';
+export const COUNT_PURCHASE = 'COUNT_PURCHASE';
+export const GET_PURCHASE = 'GET_PURCHASE';
