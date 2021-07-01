@@ -16,6 +16,7 @@ const StepFour = props => {
 
     useEffect(() => {
         transRef.start();
+        //eslint-disable-next-line
     }, [])
 
     const handleSubmit = (e) => {

@@ -55,6 +55,7 @@ const Order = props => {
     const [activeStep, setActiveStep] = useState(0);
     const [fieldStepOne, setFieldStepOne] = useState({});
     const [fieldStepTwo, setFieldStepTwo] = useState({});
+    const [fieldStepThree, setFieldStepThree] = useState({});
 
     const steps = getSteps();
 
@@ -64,6 +65,8 @@ const Order = props => {
             setFieldStepOne(parameter);   
         }else if(nextStep === 2){
             setFieldStepTwo(parameter);   
+        }else if(nextStep === 3){
+            setFieldStepThree(parameter);
         }
     }
 
@@ -99,7 +102,13 @@ const Order = props => {
                     setMessage={props.setMessage}
                     defaultValue={fieldStepTwo}
                 /> }
-            { activeStep === 2 && <StepThree onSubmit={submitStep} goBack={handleBack} /> }
+            { activeStep === 2 && 
+                <StepThree 
+                    onSubmit={submitStep} 
+                    goBack={handleBack} 
+                    setMessage={props.setMessage}
+                    defaultValue={fieldStepThree}
+                /> }
             { activeStep === 3 && <StepFour onSubmit={submitStep} goBack={handleBack} /> }
             
         </Container>

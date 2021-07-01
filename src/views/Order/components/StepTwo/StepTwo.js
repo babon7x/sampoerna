@@ -1,7 +1,7 @@
 import { animated, useSpringRef, useTransition } from 'react-spring';
 import React, { useEffect, useState } from 'react';
 import { Button, FormControl, FormControlLabel, Grid, makeStyles, TextField } from '@material-ui/core';
-import { Typography, Divider } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { StyledCheckBox } from '../../../../components';
 import { Autocomplete } from '@material-ui/lab';
@@ -61,6 +61,7 @@ const StepTwo = props => {
 
     useEffect(() => {
         transRef.start();
+        //eslint-disable-next-line
     }, [])
 
     useEffect(() => {
@@ -129,6 +130,7 @@ const StepTwo = props => {
                 return () => clearTimeout(timeId);
             }
         }
+        //eslint-disable-next-line
     }, [field.addressInputValue, field.onbehalf]);
 
     const handleChangeCheckbox = (e) => {
