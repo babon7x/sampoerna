@@ -6,3 +6,4 @@ export { default as SelectOption } from './SelectOption';
 export { default as Notification } from './Notification';
 export { default as ConfirmModal } from './ConfirmModal';
 export { default as StepperIcon } from './StepperIcon';
+export { default as StyledCheckBox } from './StyledCheckBox'; 

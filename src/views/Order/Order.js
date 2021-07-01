@@ -54,12 +54,17 @@ const Order = props => {
     const classes = useStyles();
     const [activeStep, setActiveStep] = useState(0);
     const [fieldStepOne, setFieldStepOne] = useState({});
+    const [fieldStepTwo, setFieldStepTwo] = useState({});
 
     const steps = getSteps();
 
     const submitStep = (nextStep, parameter) => {
         setActiveStep(nextStep);
-        setFieldStepOne(parameter);
+        if(nextStep === 1){
+            setFieldStepOne(parameter);   
+        }else if(nextStep === 2){
+            setFieldStepTwo(parameter);   
+        }
     }
 
     const handleBack = () => setActiveStep(prevStep => prevStep - 1); 
@@ -85,7 +90,15 @@ const Order = props => {
                     user={props.session}
                     defaultValues={fieldStepOne}
                 /> }
-            { activeStep === 1 && <StepTwo onSubmit={submitStep} goBack={handleBack} /> }
+            { activeStep === 1 && 
+                <StepTwo 
+                    onSubmit={submitStep} 
+                    goBack={handleBack} 
+                    stepOneData={fieldStepOne}
+                    user={props.session}
+                    setMessage={props.setMessage}
+                    defaultValue={fieldStepTwo}
+                /> }
             { activeStep === 2 && <StepThree onSubmit={submitStep} goBack={handleBack} /> }
             { activeStep === 3 && <StepFour onSubmit={submitStep} goBack={handleBack} /> }
             

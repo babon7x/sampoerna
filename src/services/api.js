@@ -48,5 +48,11 @@ export default {
             headers, 
             onDownloadProgress: params.type === 'data' ? config.onDownloadProgress : () => {}
         }).then(res => res.data)
+    },
+    order: {
+        getAddress: (params) => axios.get(`${url}/referensi/address`, { 
+            params,
+            headers
+        }).then(res => res.data)
     }
 }

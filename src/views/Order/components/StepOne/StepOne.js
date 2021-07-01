@@ -37,7 +37,8 @@ const StepOne = props => {
     const [field, setField] = useState({
         ponumber: '',
         choosedline: '00',
-        linenumberlist: []
+        linenumberlist: [],
+        email: ''
     })
     const [errors, setErrors] = useState({});
     const [disabled, setDisabled] = useState(false);
@@ -57,8 +58,8 @@ const StepOne = props => {
 
     useEffect(() => {
         if(props.defaultValues.ponumber){
-            const { ponumber, choosedline, linenumberlist } = props.defaultValues
-            setField(prev => ({ ...prev, ponumber, choosedline, linenumberlist }))
+            const { ponumber, choosedline, linenumberlist, email } = props.defaultValues
+            setField(prev => ({ ...prev, ponumber, choosedline, linenumberlist, email }))
             setDisabled(true);
         }
     }, [props.defaultValues]);
@@ -66,7 +67,7 @@ const StepOne = props => {
     const handleSearch = async (e) => {
         e.preventDefault();
         if(disabled){
-            setField(prev => ({ ...prev, linenumberlist: [], choosedline: '00', ponumber: ''}));
+            setField(prev => ({ ...prev, linenumberlist: [], choosedline: '00', ponumber: '', email: ''}));
             setDisabled(false);
         }else{
             const errors = validate(field);
@@ -97,7 +98,7 @@ const StepOne = props => {
                             })
                         })
 
-                        setField(prev => ({ ...prev, linenumberlist }));
+                        setField(prev => ({ ...prev, linenumberlist, email: data[0].email })); //get first email
                     }else{
                         props.setMessage(find, true, 'error');
                     }
