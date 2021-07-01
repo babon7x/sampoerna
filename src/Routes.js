@@ -2,16 +2,7 @@ import React from 'react';
 import { Redirect, Switch } from 'react-router-dom'
 import { UserRoute, GuestRoute } from "./authroutes";
 import { MinLayout } from "./layouts";
-import { 
-    Home, 
-    Login, 
-    Users, 
-    AddUser,
-    Profile,
-    Registrasi,
-    Purchase,
-    ListPo
-} from "./views";
+import {  Home,  Login, Users, AddUser, Profile, Registrasi, Purchase, ListPo, Order } from "./views";
 
 const Routes = props => {
     return(
@@ -25,6 +16,7 @@ const Routes = props => {
             <GuestRoute path="/registrasi" exact component={Registrasi} layout={MinLayout}/>
             <UserRoute path="/purchase" exact component={Purchase} layout={MinLayout}/>
             <UserRoute path="/purchase/list" exact component={ListPo} layout={MinLayout}/>
+            <UserRoute path="/order" exact component={Order} layout={MinLayout}/>
         </Switch>
     )
 }
