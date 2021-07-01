@@ -232,7 +232,7 @@ const StepThree = props => {
                                 renderInput={(params) => 
                                     <TextField 
                                         {...params} 
-                                        label="Alamat pengirim" 
+                                        label="Alamat pengirim *" 
                                         placeholder="Cari kota/kabupaten/kecamatan/kelurahan.."
                                         variant="outlined"
                                         InputLabelProps={{shrink: true}} 
