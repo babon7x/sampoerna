@@ -3,7 +3,7 @@ import { Container } from '@material-ui/core';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { StepperIcon } from '../../components';
-import { StepFour, StepOne, StepThree, StepTwo } from './components';
+import { StepFour, StepOne, StepThree, StepTwo, StepFive } from './components';
 import PropTypes from 'prop-types';
 import { setMessage } from '../../actions/notification';
 import { setLoadingProgress } from '../../actions/loadingprogress';
@@ -56,6 +56,7 @@ const Order = props => {
     const [fieldStepOne, setFieldStepOne] = useState({});
     const [fieldStepTwo, setFieldStepTwo] = useState({});
     const [fieldStepThree, setFieldStepThree] = useState({});
+    const [fieldStepFour, setFieldStepFour] = useState({});
 
     const steps = getSteps();
 
@@ -67,6 +68,8 @@ const Order = props => {
             setFieldStepTwo(parameter);   
         }else if(nextStep === 3){
             setFieldStepThree(parameter);
+        }else if(nextStep === 4){
+            setFieldStepFour(parameter);
         }
     }
 
@@ -109,8 +112,13 @@ const Order = props => {
                     setMessage={props.setMessage}
                     defaultValue={fieldStepThree}
                 /> }
-            { activeStep === 3 && <StepFour onSubmit={submitStep} goBack={handleBack} /> }
-            
+            { activeStep === 3 && 
+                <StepFour 
+                    onSubmit={submitStep} 
+                    goBack={handleBack} 
+                    defaultValue={fieldStepFour}
+                /> }
+            { activeStep === 4 && <StepFive goBack={handleBack} />}
         </Container>
     )
 }
