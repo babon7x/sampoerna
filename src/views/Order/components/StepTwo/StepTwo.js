@@ -1,7 +1,6 @@
 import { animated, useSpringRef, useTransition } from 'react-spring';
 import React, { useEffect, useState } from 'react';
 import { Button, FormControl, FormControlLabel, Grid, makeStyles, TextField } from '@material-ui/core';
-import { Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { StyledCheckBox } from '../../../../components';
 import { Autocomplete } from '@material-ui/lab';
@@ -206,10 +205,11 @@ const StepTwo = props => {
         if(!values.detail) errors.detail = "Detail alamat belum diisi";
         if(!values.provinsi) errors.provinsi = "Provinsi belum diisi";
         if(!values.kecamatan && values.onbehalf) errors.kecamatan = "Kecamatan belum diisi";
+        if(!values.kelurahan && values.onbehalf) errors.kelurahan = "Kelurahan belum diisi";
         if(!values.city && values.onbehalf) errors.city = "Kota belum diisi";
         if(!values.kodepos && values.onbehalf) errors.kodepos = "Kodepos belum diisi";
         if(!values.onbehalf){
-            if(!values.kecamatan || !values.kodepos || !values.city) errors.autocomplete = "Alamat tidak valid";
+            if(!values.kecamatan || !values.kodepos || !values.city ||values.kelurahan) errors.autocomplete = "Alamat tidak valid";
         }
         return errors;
     }
@@ -217,8 +217,6 @@ const StepTwo = props => {
     return transitions(style => <animated.div style={{ ...style }}>
         <Grid container spacing={2} justify='center'>
             <Grid item xs={12} sm={12} md={8}>
-                <Typography align='center' variant='h6'>Pengirim</Typography>
-                <Typography align='center' variant='body2'>Kelola data pengirim</Typography>
                 <div className={classes.content}>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
@@ -297,7 +295,7 @@ const StepTwo = props => {
                             </FormControl>
                         </Grid>
                         { field.onbehalf ? <React.Fragment>
-                            <Grid item xs={12} sm={4}>
+                            <Grid item xs={12} sm={6}>
                                 <FormControl fullWidth>
                                     <TextField 
                                         variant='outlined'
@@ -312,7 +310,22 @@ const StepTwo = props => {
                                     />
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12} sm={4}>
+                            <Grid item xs={12} sm={2}>
+                                <FormControl fullWidth>
+                                    <TextField 
+                                        variant='outlined'
+                                        label='Kodepos *'
+                                        placeholder='Masukkan kodepos'
+                                        InputLabelProps={{shrink: true}}
+                                        value={field.kodepos}
+                                        name='kodepos'
+                                        onChange={handleChange}
+                                        error={!!errors.kodepos}
+                                        helperText={errors.kodepos ? errors.kodepos : null }
+                                    />
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
                                 <FormControl fullWidth>
                                     <TextField 
                                         variant='outlined'
@@ -324,6 +337,21 @@ const StepTwo = props => {
                                         onChange={handleChange}
                                         error={!!errors.kecamatan}
                                         helperText={errors.kecamatan ? errors.kecamatan : null }
+                                    />
+                                </FormControl>
+                            </Grid>             
+                            <Grid item xs={12} sm={6}>
+                                <FormControl fullWidth>
+                                    <TextField 
+                                        variant='outlined'
+                                        label='Kelurahan *'
+                                        placeholder='Masukkan nama kelurahan'
+                                        InputLabelProps={{shrink: true}}
+                                        value={field.kelurahan}
+                                        name='kelurahan'
+                                        onChange={handleChange}
+                                        error={!!errors.kelurahan}
+                                        helperText={errors.kelurahan ? errors.kelurahan : null }
                                     />
                                 </FormControl>
                             </Grid>                            
