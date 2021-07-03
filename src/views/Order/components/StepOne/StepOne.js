@@ -61,6 +61,15 @@ const StepOne = props => {
             const { ponumber, choosedline, linenumberlist, email } = props.defaultValues
             setField(prev => ({ ...prev, ponumber, choosedline, linenumberlist, email }))
             setDisabled(true);
+        }else{
+            setField(prev => ({ 
+                ...prev, 
+                ponumber: '',
+                choosedline: '00',
+                linenumberlist: [],
+                email: ''
+            }))
+            setDisabled(false);
         }
     }, [props.defaultValues]);
 
