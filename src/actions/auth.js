@@ -1,5 +1,5 @@
 import api from "../services/api";
-import { GET_MENU, RESET_MENU, SET_LOGGED_IN, SET_LOGGED_OUT } from "../types";
+import { GET_MENU, RESET_MENU, SET_LOGGED_IN, SET_LOGGED_OUT, SET_MOUNT } from "../types";
 import defaultmenu from '../json/defaultmenu.json';
 
 export const login = (payload) => dispatch =>
@@ -38,6 +38,8 @@ export const setLoggedIn = (user) => async dispatch => {
                 type: GET_MENU,
                 data
             })
+
+            dispatch({ type: SET_MOUNT, mountvalue: true });
         }
     } catch (error) {
         alert("get menu failed");

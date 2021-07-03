@@ -8,6 +8,7 @@ import message from './reducers/message';
 import levels from './reducers/levels';
 import purchase from './reducers/purchase';
 import orders from './reducers/orders';
+import mount from './reducers/mount';
 
 export default combineReducers({
     auth,
@@ -18,5 +19,6 @@ export default combineReducers({
     message,
     levels,
     purchase,
-    orders
+    orders,
+    mount
 })
