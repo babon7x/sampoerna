@@ -3,7 +3,7 @@ import { Container } from '@material-ui/core';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { StepperIcon } from '../../components';
-import { StepFour, StepOne, StepThree, StepTwo, StepFive } from './components';
+import { StepFour, StepOne, StepThree, StepTwo, StepFive, LastStep } from './components';
 import PropTypes from 'prop-types';
 import { setMessage } from '../../actions/notification';
 import { setLoadingProgress } from '../../actions/loadingprogress';
@@ -70,6 +70,10 @@ const Order = props => {
             setFieldStepThree(parameter);
         }else if(nextStep === 4){
             setFieldStepFour(parameter);
+        }else if(nextStep === 5){
+            if(parameter.ispickup){
+
+            }
         }
     }
 
@@ -117,8 +121,25 @@ const Order = props => {
                     onSubmit={submitStep} 
                     goBack={handleBack} 
                     defaultValue={fieldStepFour}
+                    sender={fieldStepTwo}
+                    receiver={fieldStepThree}
+                    setMessage={props.setMessage}
+                    setLoadingProgress={props.setLoadingProgress}
+                    user={props.session}
                 /> }
-            { activeStep === 4 && <StepFive goBack={handleBack} />}
+            { activeStep === 4 && 
+                <StepFive 
+                    goBack={handleBack} 
+                    stepFourData={fieldStepFour}
+                    onSubmit={submitStep}
+                /> }
+            {activeStep === 5 && 
+                <LastStep 
+                    goBack={handleBack} 
+                    sender={fieldStepTwo}
+                    receiver={fieldStepThree}
+                    kiriman={fieldStepFour}
+                /> }
         </Container>
     )
 }

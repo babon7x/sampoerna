@@ -53,6 +53,8 @@ export default {
         getAddress: (params) => axios.get(`${url}/referensi/address`, { 
             params,
             headers
-        }).then(res => res.data)
+        }).then(res => res.data),
+        getFee: (params) => axios.get(`${url}/fee`, { params, headers, onDownloadProgress: config.onDownloadProgress })
+            .then(res => res.data)
     }
 }

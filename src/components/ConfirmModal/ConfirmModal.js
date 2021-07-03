@@ -23,19 +23,19 @@ const ConfirmModal = props => {
             TransitionComponent={Transition}
             keepMounted
             fullWidth
-            maxWidth='xs'
+            maxWidth={props.size ? props.size : 'xs'}
         >
-            <DialogTitle style={{textAlign: 'center'}}>NOTIFIKASI</DialogTitle>
-            <DialogContent>
+            <DialogTitle style={{textAlign: 'center'}}>{props.title ? props.title : 'NOTIFIKASI'}</DialogTitle>
+            <DialogContent dividers>
                 { props.children }
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} color="primary">
                     Batal
                 </Button>
-                <Button onClick={onAggre} color="primary">
+                { !props.dontShowYesButton  && <Button onClick={onAggre} color="primary">
                     Ya
-                </Button>
+                </Button> }
             </DialogActions>
         </Dialog>
     )
@@ -46,6 +46,9 @@ ConfirmModal.propTypes = {
     open: PropTypes.func.isRequired,
     onAggre: PropTypes.func.isRequired,
     handleClose: PropTypes.func.isRequired,
+    size: PropTypes.string,
+    title: PropTypes.string,
+    dontShowYesButton: PropTypes.bool,
 }
 
 export default ConfirmModal;
