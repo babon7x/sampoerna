@@ -163,7 +163,7 @@ const ListPo = props => {
                 list.push(
                     <React.Fragment key={key}>
                         <TableRow style={{backgroundColor: '#333333'}}>
-                            <TableCell colSpan={4}>
+                            <TableCell colSpan={6}>
                                 PO NUMBER &nbsp; &nbsp;
                                 <Chip 
                                     label={element.ponumber}  
@@ -171,16 +171,16 @@ const ListPo = props => {
                                     deleteIcon={<Icon fontSize='small'>help</Icon>}
                                     onDelete={() => alert("oke")}
                                     color="primary"
-                                />  
-                                &nbsp; &nbsp; &nbsp;periode {element.startdate} sampai {element.enddate}
-                                &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; {element.email}
+                                />
                             </TableCell> 
                         </TableRow>
                         <TableRow>
                             <TableCell>{firstNumber}</TableCell>
                             <TableCell>Line ke - {element.linenumber}</TableCell>
                             <TableCell>{element.keterangan}</TableCell>
-                            <TableCell align='right'>Rp. {decimalNumber(element.bsu)}</TableCell>                            
+                            <TableCell align='center'>{element.startdate} - {element.enddate}</TableCell>
+                            <TableCell align='right'>{decimalNumber(element.bsu_awal)}</TableCell>                            
+                            <TableCell align='right'>{decimalNumber(element.bsu)}</TableCell>                            
                         </TableRow>
                     </React.Fragment>
                 )
@@ -190,7 +190,9 @@ const ListPo = props => {
                         <TableCell>{firstNumber}</TableCell>
                         <TableCell>Line ke - {element.linenumber}</TableCell>
                         <TableCell>{element.keterangan}</TableCell>
-                        <TableCell align='right'>Rp. {decimalNumber(element.bsu)}</TableCell>
+                        <TableCell align='center'>{element.startdate} - {element.enddate}</TableCell>
+                        <TableCell align='right'>{decimalNumber(element.bsu_awal)}</TableCell>
+                        <TableCell align='right'>{decimalNumber(element.bsu)}</TableCell>
                     </TableRow>
                 )
             }
@@ -241,7 +243,9 @@ const ListPo = props => {
                                     <TableCell>NO</TableCell>
                                     <TableCell>LINE NUMBER</TableCell>
                                     <TableCell>DESKRIPSI</TableCell>
+                                    <TableCell align='center'>PERIODE</TableCell>
                                     <TableCell align='right'>BESAR UANG</TableCell>
+                                    <TableCell align='right'>TERSISA</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
