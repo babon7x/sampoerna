@@ -9,7 +9,7 @@ let config = {
         let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
         store.dispatch({
             type: SET_LOADING_PROGERES,
-            percentage: percentCompleted
+            percentage: !isFinite(percentCompleted) ? 100 : percentCompleted
         });
     }
 }

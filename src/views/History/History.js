@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import { getOrder } from '../../actions/orders';
 import { setMessage } from '../../actions/notification';
 import { setLoadingProgress } from '../../actions/loadingprogress';
-import { ListOrder } from './components';
+import { ListOrder, ModalDetail } from './components';
 import { Pagination } from '@material-ui/lab';
 
 const useStyles = makeStyles(theme => ({
@@ -35,6 +35,10 @@ const History = props => {
         search: '',
         loadingsearch: false
     })
+    const [detail, setDetail] = useState({
+        open: false,
+        data: {}
+    });
 
     const { limit, activePage } = paging;
     const offsetValue = (activePage * limit) - limit;
@@ -147,6 +151,11 @@ const History = props => {
 
     return(
         <Container>
+            <ModalDetail 
+                open={detail.open} 
+                handleClose={() => setDetail(prev => ({ ...prev, open: false }))} 
+                data={detail.data}
+            />
             <div className={classes.root}>
                 <Grid container spacing={2} justify='flex-end'>
                     <Grid item xs={6} sm={3} md={2}>
@@ -200,6 +209,7 @@ const History = props => {
                 </Grid>
                 <ListOrder 
                     data={pagesrow}
+                    onClickDetail={(data) => setDetail({ open: true, data })}
                 />
                 { totalorder > 0 && <div className={classes.paging}>
                     <Pagination

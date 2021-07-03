@@ -58,7 +58,13 @@ const ListOrder = props => {
                             </ListItem>
                         </List>
                         <CardActions style={{justifyContent: 'center'}}>
-                            <Button variant='outlined' fullWidth>Lihat detail</Button>
+                            <Button 
+                                variant='outlined' 
+                                onClick={() => props.onClickDetail(order)} 
+                                fullWidth
+                            >
+                                Lihat detail
+                            </Button>
                         </CardActions>
                     </Card>
                 </Grid>) : <Grid item xs={12} sm={4}>
@@ -80,6 +86,7 @@ const ListOrder = props => {
 
 ListOrder.propTypes = {
     data: PropTypes.array.isRequired,
+    onClickDetail: PropTypes.func.isRequired,
 }
 
 export default ListOrder;
