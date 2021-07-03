@@ -57,6 +57,7 @@ const Order = props => {
     const [fieldStepTwo, setFieldStepTwo] = useState({});
     const [fieldStepThree, setFieldStepThree] = useState({});
     const [fieldStepFour, setFieldStepFour] = useState({});
+    const [fieldStepFive, setFieldStepFive] = useState({});
 
     const steps = getSteps();
 
@@ -71,13 +72,20 @@ const Order = props => {
         }else if(nextStep === 4){
             setFieldStepFour(parameter);
         }else if(nextStep === 5){
-            if(parameter.ispickup){
-
-            }
+            setFieldStepFive(parameter);
         }
     }
 
     const handleBack = () => setActiveStep(prevStep => prevStep - 1); 
+
+    const handleReset = () => {
+        setActiveStep(0);
+        setFieldStepOne({});   
+        setFieldStepTwo({});   
+        setFieldStepThree({});
+        setFieldStepFour({});
+        setFieldStepFive({});
+    }
 
     return(
         <Container>
@@ -132,6 +140,9 @@ const Order = props => {
                     goBack={handleBack} 
                     stepFourData={fieldStepFour}
                     onSubmit={submitStep}
+                    sender={fieldStepTwo}
+                    setMessage={props.setMessage}
+                    defaultValues={fieldStepFive}
                 /> }
             {activeStep === 5 && 
                 <LastStep 
@@ -139,6 +150,12 @@ const Order = props => {
                     sender={fieldStepTwo}
                     receiver={fieldStepThree}
                     kiriman={fieldStepFour}
+                    pickup={fieldStepFive}
+                    user={props.session}
+                    setMessage={props.setMessage}
+                    ponumber={fieldStepOne}
+                    setLoadingProgress={props.setLoadingProgress}
+                    reset={handleReset}
                 /> }
         </Container>
     )

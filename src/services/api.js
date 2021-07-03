@@ -55,6 +55,8 @@ export default {
             headers
         }).then(res => res.data),
         getFee: (params) => axios.get(`${url}/fee`, { params, headers, onDownloadProgress: config.onDownloadProgress })
+            .then(res => res.data),
+        post: (payload) => axios.post(`${url}/orderbooking`, { ...payload }, config)
             .then(res => res.data)
     }
 }
