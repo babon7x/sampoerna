@@ -9,3 +9,6 @@ export const SET_LOGGED_OUT = 'SET_LOGGED_OUT';
 export const RESET_MENU = 'RESET_MENU';
 export const COUNT_PURCHASE = 'COUNT_PURCHASE';
 export const GET_PURCHASE = 'GET_PURCHASE';
+export const GET_ORDER = 'GET_ORDER';
+export const COUNT_ORDER = 'COUNT_ORDER';
+export const RESET_ORDER = 'RESET_ORDER';

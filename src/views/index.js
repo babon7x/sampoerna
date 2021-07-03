@@ -7,3 +7,4 @@ export { default as Registrasi } from './Registrasi';
 export { default as Purchase } from './Purchase';
 export { default as ListPo } from './ListPo';
 export { default as Order } from './Order';
+export { default as History } from './History';

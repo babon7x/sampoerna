@@ -38,3 +38,11 @@ export const convertDate = (dateValue, type) => {
           return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
     }
 }
+
+export const capitalize = (string) => {
+	if (string) {
+		return string.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+	}else{
+		return '-';
+	}
+}
