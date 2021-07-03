@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect, Switch } from 'react-router-dom'
-import { UserRoute, GuestRoute } from "./authroutes";
+import { UserRoute, GuestRoute, BothRoute } from "./authroutes";
 import { MinLayout } from "./layouts";
-import {  Home,  Login, Users, AddUser, Profile, Registrasi, Purchase, ListPo, Order, History } from "./views";
+import {  Home,  Login, Users, AddUser, Profile, Registrasi, Purchase, ListPo, Order, History, NotFound } from "./views";
 
 const Routes = props => {
     return(
@@ -18,6 +18,8 @@ const Routes = props => {
             <UserRoute path="/purchase/list" exact component={ListPo} layout={MinLayout}/>
             <UserRoute path="/order" exact component={Order} layout={MinLayout}/>
             <UserRoute path="/order/list" exact component={History} layout={MinLayout}/>
+            <BothRoute path="/not-found" exact component={NotFound} />
+            <Redirect to="/not-found" />
         </Switch>
     )
 }
