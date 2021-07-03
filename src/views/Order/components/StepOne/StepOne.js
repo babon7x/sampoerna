@@ -94,7 +94,8 @@ const StepOne = props => {
                             linenumberlist.push({
                                 number: line.linenumber,
                                 bsu: line.bsu,
-                                description: line.keterangan
+                                description: line.keterangan,
+                                status: line.status
                             })
                         })
 
@@ -170,10 +171,16 @@ const StepOne = props => {
                                 labelId='choosedline'
                                 onChange={handleChange}
                             >
-                                <MenuItem value='00'><em>--pilih line number--</em></MenuItem>
-                                { field.linenumberlist.map(line => <MenuItem key={line.number} value={line.number}>
-                                   { `Line ke - ${line.number} (Rp ${decimalNumber(line.bsu)}) - ${line.description}` }
-                                </MenuItem>)}
+                                <MenuItem value='00' disabled><em>--pilih line number--</em></MenuItem>
+                                { field.linenumberlist.map(line => 
+                                    <MenuItem 
+                                        key={line.number} 
+                                        value={line.number} 
+                                        disabled={line.status === 1 ? true : false }
+                                    >
+                                        { `Line ke - ${line.number} (Rp ${decimalNumber(line.bsu)}) - ${line.description} ${line.status === 1 ? '(expired)' : ''}` }
+                                    </MenuItem>
+                                )}
                             </Select>
                             { errors.choosedline && <FormHelperText>{errors.choosedline}</FormHelperText>}
                         </FormControl>
