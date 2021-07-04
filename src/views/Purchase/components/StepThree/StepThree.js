@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Table, TableRow, TableBody, TableHead, TableCell, Card, CardContent, CardHeader, CardActions, makeStyles, Divider, FormControl, TextField, Grid, InputAdornment, Icon, DialogContentText } from '@material-ui/core';
+import { Button, Table, TableRow, TableBody, TableHead, TableCell, makeStyles, FormControl, TextField, Grid, InputAdornment, Icon, DialogContentText } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { useSpringRef, useTransition, animated } from 'react-spring';
 import { decimalNumber } from '../../../../utils';
@@ -8,10 +8,13 @@ import { ConfirmModal } from '../../../../components';
 
 const useStyles = makeStyles(theme => ({
     footer: {
+        display: 'flex',
         justifyContent: 'flex-end',
         '& > *': {
             margin: theme.spacing(0.5)
-        }
+        },
+        marginTop: theme.spacing(2),
+        marginRight: -3
     },
     cell: {
         fontSize: '13px', 
@@ -119,102 +122,93 @@ const StepThree = props => {
                 </DialogContentText>
             </ConfirmModal>
             { transitions(style => <animated.div style={{ ...style }}>
-                <Card>
-                    <CardHeader 
-                        subheader='Satu nomor PO bisa terdiri dari beberapa line PO, Anda bisa mengentri beberapa line PO disini dengan mengklik tombol tambah. Jika sudah selesai silahkan klik tombol selanjutnya'
-                    />
-                    <Divider />
-                    <CardContent>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <FormControl fullWidth>
-                                    <TextField 
-                                        label='Line PO'
-                                        placeholder='line purchase order'
-                                        InputLabelProps={{shrink: true}}
-                                        variant='outlined'
-                                        value={`Line ke ${field.linenumber}`}
-                                        disabled
-                                        size='small'
-                                    />
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <FormControl fullWidth>
-                                    <TextField 
-                                        label='Besar uang'
-                                        placeholder='Masukkan besar uang'
-                                        InputLabelProps={{shrink: true}}
-                                        variant='outlined'
-                                        InputProps={{startAdornment: <InputAdornment position='start'>Rp.</InputAdornment>}}
-                                        size='small'
-                                        value={field.bsu}
-                                        name='bsu'
-                                        onChange={handleChange}
-                                        autoComplete='off'
-                                        error={!!errors.bsu}
-                                        helperText={errors.bsu ? errors.bsu : null }
-                                    />
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                                <FormControl fullWidth>
-                                    <TextField 
-                                        label='Deskripsi'
-                                        placeholder='Deskripsi line po'
-                                        InputLabelProps={{shrink: true}}
-                                        variant='outlined'
-                                        size='small'
-                                        value={field.description}
-                                        name='description'
-                                        onChange={handleChange}
-                                        autoComplete='off'
-                                        error={!!errors.description}
-                                        helperText={errors.description ? errors.description : null }
-                                    />
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Button onClick={handleAdd} fullWidth variant='contained' color='primary' style={{color: '#FFF'}}>TAMBAH</Button>
-                            </Grid>
-                            { field.inserted.length > 0  && <Grid item xs={12}>
-                                <Table size='small'>
-                                    <TableHead style={{backgroundColor: 'rgb(160 160 160)'}}>
-                                        <TableRow>
-                                            <TableCell className={classes.cell}>LINE PO</TableCell>
-                                            <TableCell className={classes.cell}>DESKRIPSI</TableCell>
-                                            <TableCell className={classes.cell}>BSU</TableCell>
-                                            <TableCell className={classes.cell} align='center'>HAPUS</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        { field.inserted.map((insert, i) => <TableRow key={i}>
-                                            <TableCell className={classes.cell}>Line ke {insert.linenumber}</TableCell>
-                                            <TableCell className={classes.cell}>{insert.description}</TableCell>
-                                            <TableCell className={classes.cell}>Rp. {decimalNumber(insert.bsu)}</TableCell>
-                                            <TableCell className={classes.cell} align='center'>
-                                                <IconButton size='small' onClick={() => deleteInserted(insert.linenumber)}>
-                                                    <Icon fontSize='small'>delete</Icon>
-                                                </IconButton>
-                                            </TableCell>
-                                        </TableRow>)}
-                                    </TableBody>
-                                </Table>
-                            </Grid>}
-                        </Grid>
-                    </CardContent>
-                    <Divider />
-                    <CardActions className={classes.footer}>
-                        <Button variant='contained' color='secondary' onClick={handleBack}>KEMBALI</Button>
-                        { field.inserted.length > 0 && 
-                            <Button 
-                                variant='contained' 
-                                onClick={() => props.onSubmit(3, field)}
-                            >
-                                SELANJUTNYA
-                            </Button> }
-                    </CardActions>
-                </Card>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <FormControl fullWidth>
+                            <TextField 
+                                label='Line PO'
+                                placeholder='line purchase order'
+                                InputLabelProps={{shrink: true}}
+                                variant='outlined'
+                                value={`Line ke ${field.linenumber}`}
+                                disabled
+                                size='small'
+                            />
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <FormControl fullWidth>
+                            <TextField 
+                                label='Besar uang'
+                                placeholder='Masukkan besar uang'
+                                InputLabelProps={{shrink: true}}
+                                variant='outlined'
+                                InputProps={{startAdornment: <InputAdornment position='start'>Rp.</InputAdornment>}}
+                                size='small'
+                                value={field.bsu}
+                                name='bsu'
+                                onChange={handleChange}
+                                autoComplete='off'
+                                error={!!errors.bsu}
+                                helperText={errors.bsu ? errors.bsu : null }
+                            />
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={12}>
+                        <FormControl fullWidth>
+                            <TextField 
+                                label='Deskripsi'
+                                placeholder='Deskripsi line po'
+                                InputLabelProps={{shrink: true}}
+                                variant='outlined'
+                                size='small'
+                                value={field.description}
+                                name='description'
+                                onChange={handleChange}
+                                autoComplete='off'
+                                error={!!errors.description}
+                                helperText={errors.description ? errors.description : null }
+                            />
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button onClick={handleAdd} fullWidth variant='contained' color='primary' style={{color: '#FFF'}}>TAMBAH</Button>
+                    </Grid>
+                    { field.inserted.length > 0  && <Grid item xs={12}>
+                        <Table size='small'>
+                            <TableHead style={{backgroundColor: 'rgb(160 160 160)'}}>
+                                <TableRow>
+                                    <TableCell className={classes.cell}>LINE PO</TableCell>
+                                    <TableCell className={classes.cell}>DESKRIPSI</TableCell>
+                                    <TableCell className={classes.cell}>BSU</TableCell>
+                                    <TableCell className={classes.cell} align='center'>HAPUS</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                { field.inserted.map((insert, i) => <TableRow key={i}>
+                                    <TableCell className={classes.cell}>Line ke {insert.linenumber}</TableCell>
+                                    <TableCell className={classes.cell}>{insert.description}</TableCell>
+                                    <TableCell className={classes.cell}>Rp. {decimalNumber(insert.bsu)}</TableCell>
+                                    <TableCell className={classes.cell} align='center'>
+                                        <IconButton size='small' onClick={() => deleteInserted(insert.linenumber)}>
+                                            <Icon fontSize='small'>delete</Icon>
+                                        </IconButton>
+                                    </TableCell>
+                                </TableRow>)}
+                            </TableBody>
+                        </Table>
+                    </Grid>}
+                </Grid>
+                <div className={classes.footer}>
+                    <Button variant='contained' color='secondary' onClick={handleBack}>KEMBALI</Button>
+                    { field.inserted.length > 0 && 
+                        <Button 
+                            variant='contained' 
+                            onClick={() => props.onSubmit(3, field)}
+                        >
+                            SELANJUTNYA
+                        </Button> }
+                </div>
             </animated.div>) }
         </React.Fragment>
     )

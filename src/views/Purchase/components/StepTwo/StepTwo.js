@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Grid, makeStyles, FormControl, Divider, TextField, Card, CardContent, CardActions, CardHeader } from '@material-ui/core';
+import { Button, Grid, makeStyles, FormControl, TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { useSpringRef, useTransition, animated } from 'react-spring';
 import { DatePicker } from '@material-ui/pickers/DatePicker/DatePicker';
 
 const useStyles = makeStyles(theme => ({
     footer: {
+        display: 'flex',
         justifyContent: 'flex-end',
         '& > *': {
             margin: theme.spacing(0.5)
-        }
+        },
+        marginTop: theme.spacing(2),
+        marginRight: -3
     }
 }))
 
@@ -82,101 +85,92 @@ const StepTwo = props => {
     return(
         <React.Fragment>
             { transitions(style => <animated.div style={{ ...style }}>
-                <Card>
-                    <CardHeader  
-                        subheader='Notes: jika terdapat kesalahan dalam pengentrian nomor PO anda bisa mengupdatenya nanti'
-                    />
-                    <Divider />
-                    <form onSubmit={handleSubmit}>
-                        <CardContent>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} sm={6}>
-                                    <FormControl fullWidth>
-                                        <TextField 
-                                            label='Nomor PO'
-                                            placeholder='Masukan nomor purchase order'
-                                            variant='outlined'
-                                            InputLabelProps={{shrink: true}}
-                                            value={field.ponumber}
-                                            name='ponumber'
-                                            autoComplete='off'
-                                            onChange={handleChange}
-                                            error={!!errors.ponumber}
-                                            helperText={errors.ponumber ? errors.ponumber : null }
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <FormControl fullWidth>
-                                        <TextField 
-                                            label='PIC'
-                                            placeholder='Masukkan nama PIC'
-                                            variant='outlined'
-                                            InputLabelProps={{shrink: true}}
-                                            value={field.picname}
-                                            name='picname'
-                                            autoComplete='off'
-                                            onChange={handleChange}
-                                            error={!!errors.picname}
-                                            helperText={errors.picname ? errors.picname : null }
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12} sm={12}>
-                                    <FormControl fullWidth>
-                                        <TextField 
-                                            label='Perusahaan'
-                                            placeholder='Masukkan nama perusahaan'
-                                            variant='outlined'
-                                            InputLabelProps={{shrink: true}}
-                                            value={field.vendorname}
-                                            name='vendorname'
-                                            autoComplete='off'
-                                            onChange={handleChange}
-                                            error={!!errors.vendorname}
-                                            helperText={errors.vendorname ? errors.vendorname : null }
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <FormControl fullWidth>
-                                        <DatePicker
-                                            format="YYYY-MM-DD"
-                                            views={["year", "month", "date"]}
-                                            autoOk
-                                            variant="inline"
-                                            label="Mulai"
-                                            inputVariant='outlined'
-                                            value={field.startdate}
-                                            onChange={(e) => handleChangeDate(e._d, 'startdate')}
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <FormControl fullWidth>
-                                        <DatePicker
-                                            format="YYYY-MM-DD"
-                                            views={["year", "month", "date"]}
-                                            autoOk
-                                            variant="inline"
-                                            label="Sampai"
-                                            inputVariant='outlined'
-                                            value={field.enddate}
-                                            onChange={(e) => handleChangeDate(e._d, 'enddate')}
-                                        />
-                                    </FormControl>
-                                </Grid>
-                            </Grid>
-                        </CardContent>
-                        <Divider />
-                        <CardActions className={classes.footer}>
-                            <Button variant='contained' color='secondary' onClick={props.onGoback}>
-                                KEMBALI
-                            </Button>
-                            <Button variant='contained' type='submit'>SELANJUTNYA</Button>
-                        </CardActions>
-                    </form>
-                </Card>
+                <form onSubmit={handleSubmit}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth>
+                                <TextField 
+                                    label='Nomor PO'
+                                    placeholder='Masukan nomor purchase order'
+                                    variant='outlined'
+                                    InputLabelProps={{shrink: true}}
+                                    value={field.ponumber}
+                                    name='ponumber'
+                                    autoComplete='off'
+                                    onChange={handleChange}
+                                    error={!!errors.ponumber}
+                                    helperText={errors.ponumber ? errors.ponumber : null }
+                                />
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth>
+                                <TextField 
+                                    label='PIC'
+                                    placeholder='Masukkan nama PIC'
+                                    variant='outlined'
+                                    InputLabelProps={{shrink: true}}
+                                    value={field.picname}
+                                    name='picname'
+                                    autoComplete='off'
+                                    onChange={handleChange}
+                                    error={!!errors.picname}
+                                    helperText={errors.picname ? errors.picname : null }
+                                />
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                            <FormControl fullWidth>
+                                <TextField 
+                                    label='Perusahaan'
+                                    placeholder='Masukkan nama perusahaan'
+                                    variant='outlined'
+                                    InputLabelProps={{shrink: true}}
+                                    value={field.vendorname}
+                                    name='vendorname'
+                                    autoComplete='off'
+                                    onChange={handleChange}
+                                    error={!!errors.vendorname}
+                                    helperText={errors.vendorname ? errors.vendorname : null }
+                                />
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth>
+                                <DatePicker
+                                    format="YYYY-MM-DD"
+                                    views={["year", "month", "date"]}
+                                    autoOk
+                                    variant="inline"
+                                    label="Mulai"
+                                    inputVariant='outlined'
+                                    value={field.startdate}
+                                    onChange={(e) => handleChangeDate(e._d, 'startdate')}
+                                />
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth>
+                                <DatePicker
+                                    format="YYYY-MM-DD"
+                                    views={["year", "month", "date"]}
+                                    autoOk
+                                    variant="inline"
+                                    label="Sampai"
+                                    inputVariant='outlined'
+                                    value={field.enddate}
+                                    onChange={(e) => handleChangeDate(e._d, 'enddate')}
+                                />
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                    <div className={classes.footer}>
+                        <Button variant='contained' color='secondary' onClick={props.onGoback}>
+                            KEMBALI
+                        </Button>
+                        <Button variant='contained' type='submit'>SELANJUTNYA</Button>
+                    </div>
+                </form>
             </animated.div>) }
         </React.Fragment>
     )

@@ -1,17 +1,20 @@
 import React, { useEffect } from 'react';
-import { Card, makeStyles, CardHeader, CardActions, Button, Divider, CardContent, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import { makeStyles, Button, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { useSpringRef, useTransition, animated } from 'react-spring';
 //import api from '../../../../services/api';
 import { convertDate, decimalNumber } from '../../../../utils';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     footer: {
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
         '& > *': {
             margin: theme.spacing(0.5)
-        }
+        },
+        marginTop: theme.spacing(2),
+        marginRight: -3
     },
     root: {
         margin: theme.spacing(2)
@@ -22,6 +25,10 @@ const useStyles = makeStyles(theme => ({
         borderColor: '#e8e8e8',
         borderStyle: 'solid'
     },
+    title: {
+        textAlign: 'center',
+        margin: theme.spacing(2)
+    }
 }))
 
 
@@ -59,68 +66,61 @@ const StepFour = props => {
     return(
         <React.Fragment>
             { transitions(style => <animated.div style={{ ...style }} className={classes.root}>
-                <Card>
-                    <CardHeader 
-                        title='Result'
-                        subheader='Pastikan data sudah susuai lalu klik tombol selesai'
-                    />
-                    <Divider />
-                    <CardContent>
-                        <table style={{width: '100%'}}>
-                            <tbody>
-                                <tr>
-                                    <td width='30%'>Email</td>
-                                    <td>: {stepOneData.email}</td>
-                                </tr>
-                                <tr>
-                                    <td>Purchase order number</td>
-                                    <td>: {stepTwoData.ponumber}</td>
-                                </tr>
-                                <tr>
-                                    <td>PIC name</td>
-                                    <td>: {stepTwoData.picname}</td>
-                                </tr>
-                                <tr>
-                                    <td>Perusahaan</td>
-                                    <td>: {stepTwoData.vendorname}</td>
-                                </tr>
-                                <tr>
-                                    <td>Periode</td>
-                                    <td>: {convertDate(stepTwoData.startdate, 'yyyymmdd')} Sampai {convertDate(stepTwoData.startdate, 'yyyymmdd')}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <Table size='small' style={{marginTop: 10}}>
-                            <TableHead style={{backgroundColor: 'rgb(160 160 160)'}}>
-                                <TableRow>
-                                    <TableCell className={classes.cell}>Line Number</TableCell>
-                                    <TableCell className={classes.cell}>Deskripsi</TableCell>
-                                    <TableCell className={classes.cell}>Besar Uang</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                { stepThreeData.inserted.map(line => <TableRow key={line.linenumber}>
-                                    <TableCell className={classes.cell}>Line ke - {line.linenumber}</TableCell>
-                                    <TableCell className={classes.cell}>{line.description}</TableCell>
-                                    <TableCell className={classes.cell}>Rp. {decimalNumber(line.bsu)}</TableCell>
-                                </TableRow>) }
-                            </TableBody>
-                        </Table>
-                    </CardContent>
-                    <Divider />
-                    <CardActions style={{justifyContent: 'flex-end'}}>
-                            <Button variant='contained' color='secondary' onClick={props.onGoback}>
-                                KEMBALI
-                            </Button>
-                            <Button 
-                                variant='contained' 
-                                onClick={handleSubmit}
-                                disabled={props.loading}
-                            >
-                                { props.loading ? 'Loading...' : 'Selesai' }
-                            </Button>
-                    </CardActions>
-                </Card>
+                <div className={classes.title}>
+                    <Typography align='center'>Silahkan klik tombol selesai <br/>untuk menyimpan data yang telah dientri</Typography>   
+                </div>
+                <table style={{width: '100%'}}>
+                    <tbody>
+                        <tr>
+                            <td width='30%'>Email</td>
+                            <td>: {stepOneData.email}</td>
+                        </tr>
+                        <tr>
+                            <td>Purchase order number</td>
+                            <td>: {stepTwoData.ponumber}</td>
+                        </tr>
+                        <tr>
+                            <td>PIC name</td>
+                            <td>: {stepTwoData.picname}</td>
+                        </tr>
+                        <tr>
+                            <td>Perusahaan</td>
+                            <td>: {stepTwoData.vendorname}</td>
+                        </tr>
+                        <tr>
+                            <td>Periode</td>
+                            <td>: {convertDate(stepTwoData.startdate, 'yyyymmdd')} Sampai {convertDate(stepTwoData.startdate, 'yyyymmdd')}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <Table size='small' style={{marginTop: 10}}>
+                    <TableHead style={{backgroundColor: 'rgb(160 160 160)'}}>
+                        <TableRow>
+                            <TableCell className={classes.cell}>Line Number</TableCell>
+                            <TableCell className={classes.cell}>Deskripsi</TableCell>
+                            <TableCell className={classes.cell}>Besar Uang</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        { stepThreeData.inserted.map(line => <TableRow key={line.linenumber}>
+                            <TableCell className={classes.cell}>Line ke - {line.linenumber}</TableCell>
+                            <TableCell className={classes.cell}>{line.description}</TableCell>
+                            <TableCell className={classes.cell}>Rp. {decimalNumber(line.bsu)}</TableCell>
+                        </TableRow>) }
+                    </TableBody>
+                </Table>
+                <div className={classes.footer}>
+                        <Button variant='contained' color='secondary' onClick={props.onGoback}>
+                            KEMBALI
+                        </Button>
+                        <Button 
+                            variant='contained' 
+                            onClick={handleSubmit}
+                            disabled={props.loading}
+                        >
+                            { props.loading ? 'Loading...' : 'Selesai' }
+                        </Button>
+                </div>
             </animated.div>) }
         </React.Fragment>
     )
