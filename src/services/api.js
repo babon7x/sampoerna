@@ -63,5 +63,15 @@ export default {
             headers,
             onDownloadProgress: params.type === 'data' ? config.onDownloadProgress : () => {} 
         }).then(res => res.data)
+    },
+    invoice: {
+        getgenerate: (params) => axios.get(`${url}/invoice/generate`, { 
+            params,
+            headers,
+            onDownloadProgress: config.onDownloadProgress
+        }).then(res => res.data),
+        generate: (payload) => axios.post(`${url}/invoice/generate`, {
+            ...payload
+        }, config).then(res => res.data)
     }
 }
