@@ -12,6 +12,7 @@ import { decimalNumber } from '../../utils';
 import { Icon } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { animated, useSpringRef, useTransition } from 'react-spring';
+import { ModalDetail } from './components';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -54,6 +55,10 @@ const ListPo = props => {
         type: 'count',
         levelid: session.levelid
     }
+    const [detail, setDetail] = useState({
+        open: false,
+        data: {}
+    })
 
     useEffect(() => {
         fetch(defaultparams, 1);
@@ -168,8 +173,8 @@ const ListPo = props => {
                                 <Chip 
                                     label={element.ponumber}  
                                     size='small'
-                                    deleteIcon={<Icon fontSize='small'>help</Icon>}
-                                    onDelete={() => alert("oke")}
+                                    deleteIcon={<Icon fontSize='small'>visibility</Icon>}
+                                    onDelete={() => setDetail({ open: true, data: element })}
                                     color="primary"
                                 />
                             </TableCell> 
@@ -203,6 +208,11 @@ const ListPo = props => {
 
     return(
         <Container>
+            <ModalDetail 
+                open={detail.open}
+                data={detail.data}
+                handleClose={() => setDetail(prev => ({ ...prev, open: false }))}
+            />
             <Grid container spacing={2} justify='space-between' alignItems='center'>
                 <Grid item xs={12} sm={6}>
                     <Typography variant='h6'>Rekap data purchase order</Typography>
