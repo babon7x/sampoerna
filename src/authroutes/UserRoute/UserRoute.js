@@ -12,13 +12,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-//this route form menu in sidebar 
-//so we need to find menu is exist or not
+//this route for menu in sidebar 
+//we need to validate if menu exist in views but in menu list is empty then redirect to not found page
+//so user cannot access other user menu
 const UserRoute = props => {
     const classes = useStyles();
     const { isAuthenticated, menu, layout: Layout, component: Component, ...rest } = props;
 
-    const menuisExist = menu.find(row => row.path === props.path);
+    const menuisExist = menu.find(row => {
+        if(row.single){
+            return row.path === props.path
+        }else{
+            return row.path.find(submenu => submenu.path === props.path);
+        }
+    });
 
     if(props.mount){
         return(

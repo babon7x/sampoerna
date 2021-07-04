@@ -9,3 +9,4 @@ export { default as ListPo } from './ListPo';
 export { default as Order } from './Order';
 export { default as History } from './History';
 export { default as NotFound } from './NotFound';
+export { default as GenerateInvoice } from './GenerateInvoice';
