@@ -147,7 +147,11 @@ const StepThree = props => {
         if(!values.fullname) errors.fullname = "Nama harus diisi";
         if(!values.detail) errors.detail = "Detail alamat belum diisi";
         if(!values.provinsi) errors.provinsi = "Provinsi belum diisi";
-        if(!values.kecamatan || !values.kodepos || !values.city) errors.autocomplete = "Alamat tidak valid";
+        //if(!values.kecamatan || !values.kodepos || !values.city) errors.autocomplete = "Alamat tidak valid";
+        if(!values.kecamatan) errors.autocomplete = "Alamat tidak valid";
+        if(!values.kodepos) errors.autocomplete = "Alamat tidak valid";
+        if(!values.kelurahan) errors.autocomplete = "Alamat tidak valid";
+        if(!values.city) errors.autocomplete = "Alamat tidak valid";
         
         return errors;
     }

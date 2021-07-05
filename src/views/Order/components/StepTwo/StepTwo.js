@@ -209,10 +209,15 @@ const StepTwo = props => {
         if(!values.city && values.onbehalf) errors.city = "Kota belum diisi";
         if(!values.kodepos && values.onbehalf) errors.kodepos = "Kodepos belum diisi";
         if(!values.onbehalf){
-            if(!values.kecamatan || !values.kodepos || !values.city ||values.kelurahan) errors.autocomplete = "Alamat tidak valid";
+            if(!values.kecamatan) errors.autocomplete = "Alamat tidak valid";
+            if(!values.kodepos) errors.autocomplete = "Alamat tidak valid";
+            if(!values.kelurahan) errors.autocomplete = "Alamat tidak valid";
+            if(!values.city) errors.autocomplete = "Alamat tidak valid";
         }
         return errors;
     }
+
+    //console.log(field);
 
     return transitions(style => <animated.div style={{ ...style }}>
         <Grid container spacing={2} justify='center'>
