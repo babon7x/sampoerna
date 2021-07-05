@@ -12,7 +12,7 @@ import { Pagination } from '@material-ui/lab';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        marginTop: theme.spacing(2)
+        marginTop: theme.spacing(1)
     },
     paging: {
         marginTop: theme.spacing(3),
@@ -26,7 +26,7 @@ const History = props => {
     const { session, orderlist, totalorder } = props;
 
     const [paging, setPaging] = useState({
-        limit: 5,
+        limit: 6,
         activePage: 1
     })
     const [countFetched, setCountFetched] = useState(false);
@@ -168,12 +168,11 @@ const History = props => {
                                 name='limit'
                                 onChange={(e) => handleChangeLimit(e.target.value)}
                             >
-                                <MenuItem value='5'>5</MenuItem>
-                                <MenuItem value='10'>10</MenuItem>
-                                <MenuItem value='30'>30</MenuItem>
-                                <MenuItem value='70'>70</MenuItem>
-                                <MenuItem value='120'>120</MenuItem>
-                                <MenuItem value='150'>150</MenuItem>
+                                <MenuItem value='6'>6</MenuItem>
+                                <MenuItem value='24'>24</MenuItem>
+                                <MenuItem value='60'>60</MenuItem>
+                                <MenuItem value='114'>114</MenuItem>
+                                <MenuItem value='168'>160</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>

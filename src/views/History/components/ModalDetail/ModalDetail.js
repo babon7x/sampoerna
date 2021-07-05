@@ -36,7 +36,14 @@ const ModalDetail = props => {
                     <ListItem dense>
                         <ListItemText 
                             primary='Produk' 
-                            secondary={`${data.productid} - ${data.productname} (Rp. ${decimalNumber(data.totalfee)})`} 
+                            secondary={<React.Fragment>
+                                {`${data.productid} - ${data.productname} ` } 
+                                ({ data.status !== 0 ? 
+                                    data.totalfeereal === null ? `Rp. ${decimalNumber(data.totalfee)}` 
+                                        : `dari Rp. ${decimalNumber(data.totalfee)} naik Rp. ${decimalNumber(data.totalfeereal)}` 
+                                            : `Rp. ${decimalNumber(data.totalfee)}`})
+                            </React.Fragment>}
+                            //secondary={`${data.productid} - ${data.productname} (Rp. ${decimalNumber(data.totalfee)})`} 
                         />
                     </ListItem>
                     <ListItem dense>

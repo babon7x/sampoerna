@@ -10,12 +10,20 @@ import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        marginTop: theme.spacing(3),
+        marginTop: theme.spacing(1),
         position: 'relative',
         minHeight: '60vh'
     },
     link: {
         cursor: 'pointer'
+    },
+    icon: {
+        color: 'green',
+        fontSize: 14
+    },
+    iconred: {
+        color: 'red',
+        fontSize: 14
     }
 }))
 
@@ -43,11 +51,22 @@ const ListOrder = props => {
                         <List disablePadding>
                             <ListItem dense>
                                 <ListItemText 
-                                    primary={`ID (${order.extid})`}
+                                    primary={`ID ${order.extid}`}
                                     secondary={<React.Fragment>
-                                        Status ({order.description}) <br/>
-                                        Fee (Rp. {decimalNumber(order.totalfee)})
-                                    </React.Fragment>}
+                                        Deskripsi : {order.isikiriman} <br/>
+                                        Status : {order.description}
+                                        <div style={{display: 'flex', alignItems: 'center'}}>
+                                            Fee : { order.status !== 0 ? 
+                                                order.totalfeereal === null ? <React.Fragment>
+                                                        &nbsp;Rp. {decimalNumber(order.totalfee)}
+                                                    </React.Fragment> :
+                                                <React.Fragment>
+                                                    {`${decimalNumber(order.totalfee)} => `} 
+                                                    &nbsp;<strong>Rp. {decimalNumber(order.totalfeereal)}</strong>
+                                                </React.Fragment>
+                                            : `Rp. ${decimalNumber(order.totalfee)}`  }
+                                        </div>
+                                    </React.Fragment> }
                                 />
                             </ListItem>
                             <ListItem dense>
