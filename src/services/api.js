@@ -72,6 +72,10 @@ export default {
         }).then(res => res.data),
         generate: (payload) => axios.post(`${url}/invoice/generate`, {
             ...payload
-        }, config).then(res => res.data)
+        }, config).then(res => res.data),
+        pdf: (params) => axios.get(`${url}/pdf/invoice`, { 
+            params, 
+            responseType: 'arraybuffer' 
+        }).then(res => res.data)
     }
 }

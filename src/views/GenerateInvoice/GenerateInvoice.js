@@ -1,4 +1,4 @@
-import { Button, Container, Divider, FormControl, Grid, makeStyles } from '@material-ui/core';
+import { Backdrop, Button, CircularProgress, Container, Divider, FormControl, Grid, makeStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 import { DatePicker } from '@material-ui/pickers/DatePicker/DatePicker';
 import { Typography } from '@material-ui/core';
@@ -19,6 +19,10 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2),
         display: 'flex',
         justifyContent: 'flex-end'
+    },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
     }
 }))
 
@@ -36,6 +40,7 @@ const GenerateInvoice = props => {
         message: '',
         id: ''
     })
+    const [loadingPrint, setloadingPrint] = useState(false);
 
     const handleChangeDate = (value, name) => setField(prev => ({ ...prev, [name]: value }));
 
@@ -133,12 +138,32 @@ const GenerateInvoice = props => {
         }
     }
 
-    const handlePrint = () => {
-        alert("oke");
+    const handlePrint = async () => {
+        setloadingPrint(true);
+        try {
+            const payload = {
+                token: session.token, 
+                userid: session.userid,
+                invoiceid: success.id
+            }
+
+            const print = await api.invoice.pdf(payload);
+            let blob = new Blob([print], { type: 'application/pdf' });
+            let url = window.URL.createObjectURL(blob);
+            window.open(url); 
+
+        } catch (error) {
+            props.setMessage({ text: 'Terdapat kesalahan, silahkan cobalagi'}, true, 'error')
+        }
+
+        setloadingPrint(false);
     }
 
     return(
         <Container>
+            <Backdrop className={classes.backdrop} open={loadingPrint}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <Grid container spacing={2} justify='flex-end' alignItems='center' className={classes.searchform}>
                 <Grid item xs={12} sm={4}>
                     <Typography variant='h6'>GENERATE INVOICE</Typography>
