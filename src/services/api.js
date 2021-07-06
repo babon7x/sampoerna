@@ -76,6 +76,11 @@ export default {
         pdf: (params) => axios.get(`${url}/pdf/invoice`, { 
             params, 
             responseType: 'arraybuffer' 
+        }).then(res => res.data),
+        report: (params) => axios.get(`${url}/invoice`, {
+            params,
+            headers,
+            onDownloadProgress: params.type === 'data' ? config.onDownloadProgress : () => {}
         }).then(res => res.data)
     }
 }

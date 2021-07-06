@@ -13,3 +13,5 @@ export const GET_ORDER = 'GET_ORDER';
 export const COUNT_ORDER = 'COUNT_ORDER';
 export const RESET_ORDER = 'RESET_ORDER';
 export const SET_MOUNT = 'SET_MOUNT';
+export const COUNT_INVOICE = 'COUNT_INVOICE';
+export const GET_INVOICE = 'GET_INVOICE';
