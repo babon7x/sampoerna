@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { setMessage } from '../../actions/notification';
 import { getData } from '../../actions/invoice';
 import { setLoadingProgress } from '../../actions/loadingprogress';
-import { Container, Table, TableCell, TableContainer, TableRow, TableHead, Card, CardActions, TableBody, CardHeader, IconButton, Backdrop, CircularProgress, makeStyles, TextField, Grid } from '@material-ui/core';
+import { Container, Table, TableCell, TableContainer, TableRow, TableHead, Card, CardActions, TableBody, IconButton, Backdrop, CircularProgress, makeStyles, TextField, Grid } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import { decimalNumber } from '../../utils';
 import { Divider } from '@material-ui/core';
@@ -28,7 +28,14 @@ const useStyles = makeStyles(theme => ({
         color: '#fff',
     },
     header: {
-        margin: theme.spacing(1)
+        margin: theme.spacing(1),
+        width: '100%',
+        paddingRight: 10
+    },
+    form: {
+        display: 'flex',
+        height: '100%',
+        alignItems: 'center'
     }
 }))
 
@@ -135,7 +142,20 @@ const Invoice = props => {
                     <Grid container spacing={2} justify='space-between' className={classes.header}>
                         <Grid item xs={12} sm={4}>
                             <Typography variant='h6'>Data Invoice</Typography>
-                            <Typography variant='body2'>Rekap data hasil generate</Typography>
+                            <Typography variant='body1'>Rekap data hasil generate</Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={8} md={3}>
+                            <div className={classes.form}>
+                                <FormControl fullWidth>
+                                    <TextField 
+                                        variant='outlined'
+                                        label='Search'
+                                        placeholder='Cari nomor invoice...'
+                                        InputLabelProps={{shrink: true}}
+                                        // size='small'
+                                    />
+                                </FormControl>
+                            </div>
                         </Grid>
                     </Grid>
                     <Divider />
