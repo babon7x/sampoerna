@@ -39,7 +39,7 @@ const ListPo = props => {
     })
 
     const [paging, setPaging] = useState({
-        limit: 13,
+        limit: 12,
         activePage: 1
     })
     const [countFetched, setCountFetched] = useState(false);
@@ -228,7 +228,7 @@ const ListPo = props => {
                                 label='Show'
                                 onChange={handleChangeLimit}
                             >
-                                { ['13','30','70','100','150','200'].map(list => 
+                                { ['12','30','70','100','150','200'].map(list => 
                                     <MenuItem value={list} key={list}>
                                         { list }
                                     </MenuItem>)}
