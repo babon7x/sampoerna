@@ -52,4 +52,5 @@ export const setLoggedOut = () => dispatch => {
     localStorage.removeItem(process.env.REACT_APP_LS_NAME);
 
     dispatch({ type: RESET_MENU })
+    dispatch({ type: SET_MOUNT, mountvalue: false });
 }
