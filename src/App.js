@@ -10,9 +10,9 @@ import Routes from './Routes';
 import { setLoggedIn } from './actions/auth';
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from "@material-ui/pickers/MuiPickersUtilsProvider";
-import LogRocket from 'logrocket';
+//import LogRocket from 'logrocket';
 
-LogRocket.init('unkcd0/hm-sampoerna');
+//LogRocket.init('unkcd0/hm-sampoerna');
 
 export const store = createStore(
   rootReducers,

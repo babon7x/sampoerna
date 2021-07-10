@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { CssBaseline, AppBar, IconButton, makeStyles, SwipeableDrawer, Toolbar, Typography } from '@material-ui/core';
+import { CssBaseline, AppBar, IconButton, makeStyles, SwipeableDrawer, Toolbar, Typography, useTheme, useMediaQuery, Hidden } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { ProgressLoader, Notification } from "../../components";
 import { connect } from 'react-redux';
 import { setLoadingProgress } from '../../actions/loadingprogress';
-import { SidebarMenu } from './components';
+import { MenuDekstop, SidebarMenu } from './components';
 import { setMessage } from '../../actions/notification';
 
 const useStyles = makeStyles(theme => ({
@@ -30,12 +30,18 @@ const useStyles = makeStyles(theme => ({
         color: '#FFF'
     },
     toolbar: theme.mixins.toolbar,
+    img: {
+        width: '6.875rem',
+        height: '3.125rem'
+    }
 }))
 
 const MinLayout = props => {
     const { notification } = props;
     const classes = useStyles();
+    const theme = useTheme();
     const [open, setOpen] = useState(false);
+    const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
     useEffect(() => {
         if(props.loadingprogress === 100){
@@ -67,28 +73,40 @@ const MinLayout = props => {
             { props.loadingprogress > 0 && <ProgressLoader percentage={props.loadingprogress} /> }
             <AppBar position='fixed' className={classes.appBar} elevation={0}>
                 <Toolbar>
-                    <IconButton 
-                        edge="start" 
-                        className={classes.menuButton} 
-                        color="inherit" 
-                        aria-label="menu"
-                        onClick={toogleDrawer(true)}
-                    >
-                        <MenuIcon />
-                    </IconButton>
+                    <Hidden smUp implementation="css">
+                        <IconButton 
+                            edge="start" 
+                            className={classes.menuButton} 
+                            color="inherit" 
+                            aria-label="menu"
+                            onClick={toogleDrawer(true)}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                    </Hidden>
+                    <img 
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/images/navlogo.png`}
+                        className={classes.img}
+                        alt="logo"
+                    />
+                    
                     <Typography variant="h6" className={classes.title}>
-                        SOME TITLE HERE
+                        PT. HM SAMPOERNA
                     </Typography>
+                    { matches && <MenuDekstop 
+                        menus={props.menus}
+                    /> }
                 </Toolbar>
             </AppBar>
-            <SwipeableDrawer
+            {/* mobile view */}
+            { !matches && <SwipeableDrawer
                 anchor='left'
                 open={open}
                 onClose={toogleDrawer(false)}
                 onOpen={toogleDrawer(true)}
             >
                 { list() }
-            </SwipeableDrawer>
+            </SwipeableDrawer> }
             <CssBaseline />
             <div className={classes.content}>
                 <div className={classes.toolbar} />

@@ -9,6 +9,7 @@ import { setMessage } from '../../actions/notification';
 import { setLoadingProgress } from '../../actions/loadingprogress';
 import { ListOrder, ModalDetail } from './components';
 import { Pagination } from '@material-ui/lab';
+import statusorder from '../../json/statusorder.json';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -31,7 +32,7 @@ const History = props => {
     })
     const [countFetched, setCountFetched] = useState(false);
     const [field, setField] = useState({
-        status: '01',
+        status: 'all',
         search: '',
         loadingsearch: false
     })
@@ -186,9 +187,10 @@ const History = props => {
                                 name='status'
                                 onChange={handleChange}
                             >
-                                <MenuItem value='01'>All Status</MenuItem>
-                                <MenuItem value='1'>Pickup</MenuItem>
-                                <MenuItem value='0'>Order</MenuItem>
+                                <MenuItem value='all'>All Status</MenuItem>
+                                { statusorder.map(status => <MenuItem key={status.id} value={status.id}>
+                                    { status.name }
+                                </MenuItem>)}
                             </Select>
                         </FormControl>
                     </Grid>

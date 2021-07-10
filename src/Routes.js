@@ -15,9 +15,9 @@ const Routes = props => {
             <AllUserRoute path="/profile" exact component={Profile} layout={MinLayout}/>
             <GuestRoute path="/registrasi" exact component={Registrasi} layout={MinLayout}/>
             <UserRoute path="/purchase" exact component={Purchase} layout={MinLayout}/>
-            <UserRoute path="/purchase/list" exact component={ListPo} layout={MinLayout}/>
+            <UserRoute path="/purchaselist" exact component={ListPo} layout={MinLayout}/>
             <UserRoute path="/order" exact component={Order} layout={MinLayout}/>
-            <UserRoute path="/order/list" exact component={History} layout={MinLayout}/>
+            <UserRoute path="/orderlist" exact component={History} layout={MinLayout}/>
             <UserRoute path="/invoice/generate" exact component={GenerateInvoice} layout={MinLayout}/>
             <UserRoute path="/invoice/report" exact component={Invoice} layout={MinLayout}/>
             <BothRoute path="/not-found" exact component={NotFound} />

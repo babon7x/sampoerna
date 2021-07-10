@@ -1,0 +1,6 @@
+[
+    {"id": "0", "name": "Order"},
+    {"id": "1", "name": "Pickup"},
+    {"id": "2", "name": "Assignment"},
+    {"id": "3", "name": "Invoice"}
+]

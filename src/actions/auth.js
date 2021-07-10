@@ -1,6 +1,6 @@
 import api from "../services/api";
 import { GET_MENU, RESET_MENU, SET_LOGGED_IN, SET_LOGGED_OUT, SET_MOUNT } from "../types";
-import defaultmenu from '../json/defaultmenu.json';
+// import defaultmenu from '../json/defaultmenu.json';
 
 export const login = (payload) => dispatch =>
     api.auth(payload)
@@ -32,11 +32,10 @@ export const setLoggedIn = (user) => async dispatch => {
         const menu = await api.referensi.getMenu(payload);
 
         if(menu.rscode === 200){
-            const data = [...menu.result, ...defaultmenu];
-
+    
             dispatch({
                 type: GET_MENU,
-                data
+                data: menu.result
             })
 
             dispatch({ type: SET_MOUNT, mountvalue: true });
@@ -52,5 +51,10 @@ export const setLoggedOut = () => dispatch => {
     localStorage.removeItem(process.env.REACT_APP_LS_NAME);
 
     dispatch({ type: RESET_MENU })
-    dispatch({ type: SET_MOUNT, mountvalue: false });
+
+    //notes 
+    //login route must not have mount state
+    setTimeout(() => {
+        dispatch({ type: SET_MOUNT, mountvalue: false });
+    }, 500);    
 }
