@@ -7,12 +7,13 @@ import { decimalNumber } from '../../../../utils';
 const useStyles = makeStyles(theme => ({
     root: {
         position: 'relative', 
-        minHeight: '64vh',
+        height: '78%',
         '& > *': {
             margin: theme.spacing(1.2)
         },
         display: 'flex',
         flexDirection: 'column',
+        overflowX: 'auto'
         //justifyContent: 'center'
     },
     footer: {
@@ -20,9 +21,9 @@ const useStyles = makeStyles(theme => ({
     },
     empty: {
         display: 'flex',
-        height: '61.8vh',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        height: '100%'
     }
 }))
 
@@ -30,17 +31,12 @@ const PoUsed = props => {
     const classes = useStyles();
     const { list } = props;
     return(
-        <Card raised>
+        <Card raised style={{height: '100%'}}>
             <CardHeader title='Purchase Order' subheader='Daftar po yang sudah digunakan' />
             <Divider />
             <div className={classes.root}>
                 { list.length > 0 ? list.map((po, index) => 
-                    <Alert 
-                        key={index}
-                        variant='filled'
-                        severity='warning'
-                        //color='success'
-                    >
+                    <Alert key={index} variant='filled'severity='warning'>
                         {po.ponumber} line {po.linenumber} <br />
                         Tersisa {po.persen}% dari saldo awal Rp. {decimalNumber(po.saldo)}
                     </Alert>) : <div className={classes.empty}>
