@@ -84,7 +84,7 @@ export default {
         }).then(res => res.data)
     },
     dashboard: {
-        resultorder: (params) => axios.get(`${url}/dashboard/resultorder`, { params, headers })
-            .then(res => res.data)
+        resultorder: (params) => axios.get(`${url}/dashboard/resultorder`, { params, headers }).then(res => res.data),
+        poused: (params) => axios.get(`${url}/dashboard/poused`, { params, headers }).then(res => res.data)
     }
 }

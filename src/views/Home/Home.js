@@ -10,7 +10,7 @@ import { Alert } from '@material-ui/lab';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 import { ResultOrder, PoUsed } from './components';
-import { getResultOrder } from '../../actions/dashboard';
+import { getResultOrder, getPoUsed } from '../../actions/dashboard';
 import { setLoadingProgress } from '../../actions/loadingprogress';
 import { setMessage } from '../../actions/notification';
 
@@ -45,9 +45,12 @@ const Home = props => {
     useEffect(() => {
         (async () => {
             props.setLoadingProgress(10);
-            const { token, userid } = user;
+            const { token, userid, details } = user;
             try {
                 await props.getResultOrder({ token, userid });
+                props.setLoadingProgress(20);
+
+                await props.getPoUsed({ token, userid, officeid: details.officeid });
             } catch (error) {
                 props.setMessage(error, true, 'error');
             }
@@ -72,14 +75,14 @@ const Home = props => {
                                 <ResultOrder list={props.orders} />
                             </Grid>
                             <Grid item xs={12}>
-                                <Card style={{height: '67vh'}} raised>
+                                <Card style={{height: '68.2vh'}} raised>
                                     <p>grph</p>
                                 </Card>
                             </Grid>
                         </Grid>
                     </Grid>
                     <Grid item xs={12} sm={12} md={3}>
-                        <PoUsed />
+                        <PoUsed list={props.purchases} onClick={() => props.history.push("/purchaselist")} />
                     </Grid>
                 </Grid>
             </Container>
@@ -93,13 +96,21 @@ Home.propTypes = {
     getResultOrder: PropTypes.func.isRequired,
     setLoadingProgress: PropTypes.func.isRequired,
     setMessage: PropTypes.func.isRequired,
+    getPoUsed: PropTypes.func.isRequired,
+    purchases: PropTypes.array.isRequired,
 }
 
 function mapStateToProps(state){
     return{
         user: state.auth,
-        orders: state.dashboard.resultorder
+        orders: state.dashboard.resultorder,
+        purchases: state.dashboard.poused
     }
 }
 
-export default connect(mapStateToProps, { getResultOrder, setLoadingProgress, setMessage })(Home);
+export default connect(mapStateToProps, { 
+    getResultOrder, 
+    setLoadingProgress, 
+    setMessage,
+    getPoUsed 
+})(Home);

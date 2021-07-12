@@ -16,3 +16,4 @@ export const SET_MOUNT = 'SET_MOUNT';
 export const COUNT_INVOICE = 'COUNT_INVOICE';
 export const GET_INVOICE = 'GET_INVOICE';
 export const GET_RESULT_ORDER = 'GET_RESULT_ORDER';
+export const GET_PO_USED = 'GET_PO_USED';
