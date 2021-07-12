@@ -1,0 +1,22 @@
+[
+    {
+      "description": "Order",
+      "icon": "shopping_cart",
+      "jumlah": 0
+    },
+    {
+      "description": "Pickup",
+      "icon": "departure_board",
+      "jumlah": 0
+    },
+    {
+      "description": "Assignment",
+      "icon": "assignment_turned_in",
+      "jumlah": 0
+    },
+    {
+      "description": "Invoice",
+      "icon": "print",
+      "jumlah": 0
+    }
+]

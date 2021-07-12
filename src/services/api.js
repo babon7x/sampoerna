@@ -82,5 +82,9 @@ export default {
             headers,
             onDownloadProgress: params.type === 'data' ? config.onDownloadProgress : () => {}
         }).then(res => res.data)
+    },
+    dashboard: {
+        resultorder: (params) => axios.get(`${url}/dashboard/resultorder`, { params, headers })
+            .then(res => res.data)
     }
 }

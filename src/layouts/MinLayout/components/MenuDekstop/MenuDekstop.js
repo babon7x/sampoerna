@@ -9,14 +9,14 @@ import { Typography } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
     root: {
         '& > *': {
-            margin: theme.spacing(1)
+            margin: theme.spacing(0.5)
         }
     },
     button: {
         minWidth: 120,
         borderRadius: 20,
         "&.active": {
-            background:'black',
+            background:'#949393',
         },
     }
 }))

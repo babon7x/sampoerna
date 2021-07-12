@@ -1,4 +1,4 @@
-export const url = 'http://10.60.64.76:9445/sampoerna'
+export const url = 'http://localhost/sampoerna'
 export const headers = {
     'Content-Type': 'application/json',
     //'Accept': 'application/json',

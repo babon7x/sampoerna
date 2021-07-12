@@ -10,6 +10,7 @@ import purchase from './reducers/purchase';
 import orders from './reducers/orders';
 import mount from './reducers/mount';
 import invoice from './reducers/invoice';
+import dashboard from './reducers/dashboard';
 
 export default combineReducers({
     auth,
@@ -22,5 +23,6 @@ export default combineReducers({
     purchase,
     orders,
     mount,
-    invoice
+    invoice,
+    dashboard
 })
