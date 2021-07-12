@@ -161,7 +161,7 @@ const Login = props => {
                 </form>
                 <div className={classes.footer}>
                     <Typography color='textSecondary' variant='caption'>
-                        COPYRIGHT @2021  <br/><br/>
+                        COPYRIGHT @2021 PT. HM SAMPOERNA <br/><br/>
                         <Typography variant='caption'>POWERED BY <br/>PT POSINDONESIA</Typography>
                     </Typography>
                 </div>

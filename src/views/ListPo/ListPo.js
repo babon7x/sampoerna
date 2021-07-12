@@ -53,7 +53,8 @@ const ListPo = props => {
         token: session.token,
         userid: session.userid,
         type: 'count',
-        levelid: session.levelid
+        levelid: session.levelid,
+        officeid: Object.keys(session.details).length > 0 ? session.details.officeid : undefined
     }
     const [detail, setDetail] = useState({
         open: false,
@@ -215,7 +216,7 @@ const ListPo = props => {
             />
             <Grid container spacing={2} justify='space-between' alignItems='center'>
                 <Grid item xs={12} sm={6}>
-                    <Typography variant='h6'>Rekap data purchase order</Typography>
+                    <Typography variant='h6'>Daftar purchase order</Typography>
                     
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -259,7 +260,9 @@ const ListPo = props => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {list}
+                                { pagesrow.length > 0 ? list : <TableRow>
+                                    <TableCell colSpan={6} align='center'>No data available</TableCell>
+                                </TableRow>}
                             </TableBody>
                         </Table>
                     </TableContainer>
