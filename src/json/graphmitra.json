@@ -1,0 +1,74 @@
+[
+    {
+      "monthid": "01",
+      "name": "Januari",
+      "curyear": "0",
+      "prevyear": "0"
+    },
+    {
+      "monthid": "02",
+      "name": "Februari",
+      "curyear": "0",
+      "prevyear": "0"
+    },
+    {
+      "monthid": "03",
+      "name": "Maret",
+      "curyear": "0",
+      "prevyear": "0"
+    },
+    {
+      "monthid": "04",
+      "name": "April",
+      "curyear": "0",
+      "prevyear": "0"
+    },
+    {
+      "monthid": "05",
+      "name": "Mei",
+      "curyear": "0",
+      "prevyear": "0"
+    },
+    {
+      "monthid": "06",
+      "name": "Juni",
+      "curyear": "0",
+      "prevyear": "0"
+    },
+    {
+      "monthid": "07",
+      "name": "Juli",
+      "curyear": "0",
+      "prevyear": "0"
+    },
+    {
+      "monthid": "08",
+      "name": "Agustus",
+      "curyear": "0",
+      "prevyear": "0"
+    },
+    {
+      "monthid": "09",
+      "name": "September",
+      "curyear": "0",
+      "prevyear": "0"
+    },
+    {
+      "monthid": "10",
+      "name": "Oktober",
+      "curyear": "0",
+      "prevyear": "0"
+    },
+    {
+      "monthid": "11",
+      "name": "November",
+      "curyear": "0",
+      "prevyear": "0"
+    },
+    {
+      "monthid": "12",
+      "name": "December",
+      "curyear": "0",
+      "prevyear": "0"
+    }
+]

@@ -11,3 +11,4 @@ export { default as History } from './History';
 export { default as NotFound } from './NotFound';
 export { default as GenerateInvoice } from './GenerateInvoice';
 export { default as Invoice } from './Invoice';
+export { default as Confirm } from './Confirm';

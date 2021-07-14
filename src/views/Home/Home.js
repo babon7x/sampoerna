@@ -1,5 +1,4 @@
 import { 
-    Card,
     Container,
     Grid,
     makeStyles,
@@ -7,8 +6,8 @@ import {
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
-import { ResultOrder, PoUsed } from './components';
-import { getResultOrder, getPoUsed } from '../../actions/dashboard';
+import { ResultOrder, PoUsed, Graph } from './components';
+import { getResultOrder, getPoUsed, getPengeluaran } from '../../actions/dashboard';
 import { setLoadingProgress } from '../../actions/loadingprogress';
 import { setMessage } from '../../actions/notification';
 import { animated, useSpringRef, useTransition } from 'react-spring';
@@ -50,6 +49,9 @@ const Home = props => {
                 props.setLoadingProgress(50);
 
                 await props.getPoUsed({ token, userid, officeid: details.officeid });
+                props.setLoadingProgress(70);
+
+                await props.getPengeluaran({ token, userid, officeid: details.officeid });
             } catch (error) {
                 props.setMessage(error, true, 'error');
             }
@@ -67,9 +69,7 @@ const Home = props => {
                             <ResultOrder list={props.orders} />
                         </Grid>
                         <Grid item xs={12}>
-                            <Card style={{height: '68.2vh'}} raised>
-                                <p>grph</p>
-                            </Card>
+                            <Graph data={props.pengeluaran} />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -89,13 +89,16 @@ Home.propTypes = {
     setMessage: PropTypes.func.isRequired,
     getPoUsed: PropTypes.func.isRequired,
     purchases: PropTypes.array.isRequired,
+    pengeluaran: PropTypes.array.isRequired,
+    getPengeluaran: PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state){
     return{
         user: state.auth,
         orders: state.dashboard.resultorder,
-        purchases: state.dashboard.poused
+        purchases: state.dashboard.poused,
+        pengeluaran: state.dashboard.pengeluaran
     }
 }
 
@@ -103,5 +106,6 @@ export default connect(mapStateToProps, {
     getResultOrder, 
     setLoadingProgress, 
     setMessage,
-    getPoUsed 
+    getPoUsed,
+    getPengeluaran
 })(Home);
