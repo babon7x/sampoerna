@@ -169,7 +169,7 @@ const ListPo = props => {
                 list.push(
                     <React.Fragment key={key}>
                         <TableRow style={{backgroundColor: '#333333'}}>
-                            <TableCell colSpan={6}>
+                            <TableCell colSpan={7}>
                                 PO NUMBER &nbsp; &nbsp;
                                 <Chip 
                                     label={element.ponumber}  
@@ -184,6 +184,7 @@ const ListPo = props => {
                             <TableCell>{firstNumber}</TableCell>
                             <TableCell>Line ke - {element.linenumber}</TableCell>
                             <TableCell>{element.keterangan}</TableCell>
+                            <TableCell>{element.vendorname}</TableCell>
                             <TableCell align='center'>{element.startdate} - {element.enddate}</TableCell>
                             <TableCell align='right'>{decimalNumber(element.bsu_awal)}</TableCell>                            
                             <TableCell align='right'>{decimalNumber(element.bsu)}</TableCell>                            
@@ -196,6 +197,7 @@ const ListPo = props => {
                         <TableCell>{firstNumber}</TableCell>
                         <TableCell>Line ke - {element.linenumber}</TableCell>
                         <TableCell>{element.keterangan}</TableCell>
+                        <TableCell>{element.vendorname}</TableCell>
                         <TableCell align='center'>{element.startdate} - {element.enddate}</TableCell>
                         <TableCell align='right'>{decimalNumber(element.bsu_awal)}</TableCell>
                         <TableCell align='right'>{decimalNumber(element.bsu)}</TableCell>
@@ -254,6 +256,7 @@ const ListPo = props => {
                                     <TableCell>NO</TableCell>
                                     <TableCell>LINE NUMBER</TableCell>
                                     <TableCell>DESKRIPSI</TableCell>
+                                    <TableCell>VENDOR</TableCell>
                                     <TableCell align='center'>PERIODE</TableCell>
                                     <TableCell align='right'>BESAR UANG</TableCell>
                                     <TableCell align='right'>TERSISA</TableCell>
@@ -261,7 +264,7 @@ const ListPo = props => {
                             </TableHead>
                             <TableBody>
                                 { pagesrow.length > 0 ? list : <TableRow>
-                                    <TableCell colSpan={6} align='center'>No data available</TableCell>
+                                    <TableCell colSpan={7} align='center'>No data available</TableCell>
                                 </TableRow>}
                             </TableBody>
                         </Table>
