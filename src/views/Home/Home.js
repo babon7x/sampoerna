@@ -11,6 +11,7 @@ import { getResultOrder, getPoUsed, getPengeluaran } from '../../actions/dashboa
 import { setLoadingProgress } from '../../actions/loadingprogress';
 import { setMessage } from '../../actions/notification';
 import { animated, useSpringRef, useTransition } from 'react-spring';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 
 const useStyles = makeStyles(theme => ({
@@ -18,11 +19,10 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2)
     },
     alert: {
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
-        margin: 10,
-        zIndex: theme.zIndex.drawer + 1
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center',
+        height: '80vh'
     }
 }))
 
@@ -41,28 +41,30 @@ const Home = props => {
 
     useEffect(() => {
         transRef.start();
-        (async () => {
-            props.setLoadingProgress(20);
-            const { token, userid, details } = user;
-            try {
-                await props.getResultOrder({ token, userid });
-                props.setLoadingProgress(50);
-
-                await props.getPoUsed({ token, userid, officeid: details.officeid });
-                props.setLoadingProgress(70);
-
-                await props.getPengeluaran({ token, userid, officeid: details.officeid });
-            } catch (error) {
-                props.setMessage(error, true, 'error');
-            }
-            props.setLoadingProgress(100);
-        })();
+        if(user.levelid === 'L3'){ //ae
+            (async () => {
+                props.setLoadingProgress(20);
+                const { token, userid, details } = user;
+                try {
+                    await props.getResultOrder({ token, userid });
+                    props.setLoadingProgress(50);
+    
+                    await props.getPoUsed({ token, userid, officeid: details.officeid });
+                    props.setLoadingProgress(70);
+    
+                    await props.getPengeluaran({ token, userid, officeid: details.officeid });
+                } catch (error) {
+                    props.setMessage(error, true, 'error');
+                }
+                props.setLoadingProgress(100);
+            })();
+        }
         //eslint-disable-next-line
-    }, []);
+    }, [user.levelid]);
     
     return transitions(style => <animated.div style={{ ...style }} className={classes.root}>
         <Container>
-            <Grid container spacing={2}>
+            { user.levelid === 'L3' ? <Grid container spacing={2}>
                 <Grid item xs={12} sm={12} md={9}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -76,7 +78,12 @@ const Home = props => {
                 <Grid item xs={12} sm={12} md={3}>
                     <PoUsed list={props.purchases} onClick={() => props.history.push("/purchaselist")} />
                 </Grid>
-            </Grid>
+            </Grid> : <div className={classes.alert}>
+                <Alert variant='filled' style={{width: '50%'}}>
+                    <AlertTitle>Notifikasi</AlertTitle>
+                    Selamat datang { user.level } ({ user.fullname })
+                </Alert>
+            </div> }
         </Container>
     </animated.div>)
 }
