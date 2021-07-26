@@ -109,7 +109,7 @@ const Registrasi = props => {
 
     const validate = (values) => {
         const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-        const regexPhone = /^[0-9]{4}-[0-9]{4}-[0-9]{4}$/
+        //const regexPhone = /^[0-9]{4}-[0-9]{4}-[0-9]{4}$/
 
         const errors = {};
         if(!values.fullname) errors.fullname = "Nama lengkap harus diisi";
@@ -117,7 +117,7 @@ const Registrasi = props => {
         if(!values.phone) errors.phone = "Nomor handphone harus diisi";
         if(!values.officeid) errors.officeid = "Kantor belum dipilih";
         if(values.email && !regexEmail.test(values.email)) errors.email = "Email tidak valid";
-        if(values.phone && !regexPhone.test(values.phone)) errors.phone = "Nomor hp tidak valid, mohon input dalam format 08XX-XXXX-XXXX";
+        //if(values.phone && !regexPhone.test(values.phone)) errors.phone = "Nomor hp tidak valid, mohon input dalam format 08XX-XXXX-XXXX";
         if(!values.password) errors.password = "Password harus diisi";
         if(values.password){
             if(!values.confirmpass) errors.confirmpass = "Konfirmasi password anda";

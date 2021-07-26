@@ -208,7 +208,7 @@ const GenerateInvoice = props => {
                         fullWidth 
                         disabled={loading && listgenerate.length <= 0 ? true : false }
                     >
-                        { listgenerate.length > 0 ? 'Reset' : loading ? 'Loading...' : 'tampikan'}
+                        { listgenerate.length > 0 ? 'Reset' : loading ? 'Loading...' : 'tampilkan'}
                     </Button>
                 </Grid>
             </Grid>
